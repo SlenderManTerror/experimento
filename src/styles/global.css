@@ -1,10 +1,52 @@
 @import "tailwindcss";
 
-h1 {
+
+
+@layer base{
+
+  @font-face {
+    font-family:"AH";
+    src: url('/public\fonts\Atkinson_Hyperlegible\AtkinsonHyperlegible-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family:"AH";
+    src: url('/public\fonts\Atkinson_Hyperlegible\AtkinsonHyperlegible-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  @font-face {
+    font-family:"AH";
+    src: url('/public\fonts\Atkinson_Hyperlegible\AtkinsonHyperlegible-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  @font-face {
+    font-family:"AH";
+    src: url('/public\fonts\Atkinson_Hyperlegible\AtkinsonHyperlegible-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  h1 {
     font-size: 3rem;
     line-height: 1.1;
     font-weight: 900;
   }
 
+  :root {
 
+    --scaffold-bg: #F8F8F8;
+    --primary: #16B269;
+    --on-surface: #282828;
+    font-family: 'AH', serif;
+    font-weight: 400;
+
+
+  }
+}
 
