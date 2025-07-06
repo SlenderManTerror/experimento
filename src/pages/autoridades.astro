@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Educacion from '../assets/Educacion.svg';
+import Seguridad from '../assets/Seguridad.svg';
+import Salud from '../assets/Salud.svg';
+import Infraestructura from '../assets/Infraestructura.svg';
+import Ciencia from '../assets/Ciencia.svg';
+import Justicia from '../assets/Justicia.svg';
+import Recreacion from '../assets/Recreacion.svg';
+import Banco from '../assets/Banco.svg';
+---
+
+<Layout title="Autoridades" description="En esta página verás el funcionamiento de Pelee."/>
+
+	<h1 class="text-center pt-4 text-[var(--primary)]">
+			Cómo funciona Pelee?
+		</h1>
+
+		<br>
+
+		<p>
+			En Pelee existen una serie de autoridades que manejan las leyes dependiendo la prioridad necesaria.
+		</p>
+
+		 <div style="display: grid; gap: 20px; max-width: 1000px; margin: auto; padding: 0 20px;"
+			class="grid grid-cols-1 sm:grid-cols-2">
+
+			<div class="text-center">
+				<img src={Educacion.src} alt="Educación" class="block mx-auto mt-2">
+				<p class="mt-2 text-2xl">Respubliko de Pelee</p>
+				<p class="text-4xl">Eduka Aŭtoritato</p>
+			</div>
+
+			<div>
+				<img src={Seguridad.src} alt="Seguridad" class="block mx-auto mt-2">
+				<p class="mt-2 text-2xl">Respubliko de Pelee</p>
+				<p class="text-4xl">Sekureca Aŭtoritato</p>
+			</div>
+
+			<div>
+				<img src={Salud.src} alt="Salud" class="block mx-auto mt-2">
+				<p class="mt-2 text-2xl">Respubliko de Pelee</p>
+				<p class="text-4xl">Sana Aŭtoritato</p>
+			</div>
+
+			<div class="text-center">
+				<img src={Infraestructura.src} alt="Infraestructura" class="block mx-auto mt-2">
+				<p class="mt-2 text-2xl">Respubliko de Pelee</p>
+				<p class="text-4xl">Infrastruktura Aŭtoritato</p>
+			</div>
+
+			<div class="text-center">
+				<img src={Ciencia.src} alt="Ciencia" class="block mx-auto mt-2">
+				<p class="mt-2 text-2xl">Respubliko de Pelee</p>
+				<p class="text-4xl">Scienca Aŭtoritato</p>
+			</div>
+
+			<div class="text-center">
+				<img src={Justicia.src} alt="Justicia" class="block mx-auto mt-2">
+				<p class="mt-2 text-2xl">Respubliko de Pelee</p>
+				<p class="text-4xl">Justeca Aŭtoritato</p>
+			</div>
+
+			<div class="text-center">
+				<img src={Recreacion.src} alt="Infraestructura" class="block mx-auto mt-2">
+				<p class="mt-2 text-2xl">Respubliko de Pelee</p>
+				<p class="text-4xl">Rekrea Aŭtoritato</p>
+			</div>
+
+			<div class="text-center">
+				<img src={Banco.src} alt="Infraestructura" class="block mx-auto mt-2">
+				<p class="mt-2 text-2xl">Respubliko de Pelee</p>
+				<p class="text-4xl">Temsoj Aŭtoritato</p>
+			</div>
+
+		</div>
+</Layout>

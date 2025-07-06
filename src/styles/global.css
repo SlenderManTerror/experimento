@@ -38,6 +38,14 @@
     font-weight: 900;
   }
 
+  p{
+    font-size: larger;
+    font-weight: 500;
+    --on-surface:#282828;
+    margin: auto;
+    text-align: center;
+  }
+
   :root {
 
     --scaffold-bg: #F8F8F8;
