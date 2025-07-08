@@ -1,0 +1,28 @@
+---
+export interface Props {
+  icono: string;
+  titulo: string;
+  subtitulo: string;
+  descripcion: string;
+  alt?: string;
+}
+const { icono, titulo, subtitulo, descripcion, alt = titulo } = Astro.props;
+---
+
+<div class="text-center bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+  <img src={icono} alt={alt} class="block mx-auto mt-2 w-16 h-16 object-contain" />
+  <p class="mt-2 text-2xl font-semibold text-gray-800">{titulo}</p>
+  <p class="text-4xl font-bold text-[var(--primary)] my-2">{subtitulo}</p>
+  <p class="text-gray-600">{descripcion}</p>
+</div>
+
+<style>
+/* Evita errores internos de Vite buscando CSS en index 0 */
+img {
+  display: block;
+}
+</style>
+
+<script>
+// Evita errores internos de Vite buscando script en index 1
+</script>

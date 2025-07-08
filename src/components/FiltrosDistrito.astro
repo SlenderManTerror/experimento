@@ -1,0 +1,117 @@
+---
+// src/components/filtros.astro
+import '../styles/global.css';
+---
+
+<div class="bg-gray-100 p-4 rounded-lg mb-4 shadow-sm">
+    <h3 class="text-lg font-semibold mb-3">Filtros</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Filtro por Distrito -->
+        <div>
+            <label for="filtro-distrito" class="block text-sm font-medium text-[var(--on-surface)]  mb-1">
+                Buscar por Distrito:
+            </label>
+            <input 
+                type="text" 
+                id="filtro-distrito" 
+                placeholder="Nombre del distrito..."
+                class="w-full p-2 border border-green-600 rounded focus:ring-2 focus:ring-green-400 focus:border-transparent"
+            >
+        </div>
+        
+        <!-- Filtro por Población -->
+        <div>
+            <label for="filtro-poblacion" class="block text-sm font-medium [var(--on-surface)] mb-1">
+                Filtrar por Población:
+            </label>
+            <select 
+                id="filtro-poblacion" 
+                class="w-full p-2 border border-green-600 rounded focus:ring-2 focus:ring-green-400 focus:border-transparent"
+            >
+                <option value="">Todas las poblaciones</option>
+                <option value="0-100000">Menos de 100,000</option>
+                <option value="100000-500000">100,000 - 500,000</option>
+                <option value="500000-800000">500,000 - 800,000</option>
+                <option value="800000-1000000">Más de 800,000</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- Botón de limpiar filtros -->
+    <div class="mt-3">
+        <button 
+            id="limpiar-filtros"
+            class="px-4 py-2 bg-[var(--primary)] text-[var(--scaffold-bg)] rounded hover:bg-green-400 transition-colors"
+        >
+            Limpiar Filtros
+        </button>
+        <span id="contador-resultados" class="ml-4 text-m text-gray-600">
+            Mostrando 30 de 30 distritos
+        </span>
+    </div>
+</div>
+
+<script>
+    // Función para filtrar la tabla
+    function filtrarTabla() {
+        const filtroDistrito = (document.getElementById('filtro-distrito') as HTMLInputElement)?.value.toLowerCase() || '';
+        const filtroPoblacion = (document.getElementById('filtro-poblacion') as HTMLSelectElement)?.value || '';
+        const filas = document.querySelectorAll('.distrito-row');
+        let contadorVisible = 0;
+        
+        filas.forEach(fila => {
+            const nombreDistritoAttr = fila.getAttribute('data-distrito');
+            const nombreDistrito = nombreDistritoAttr ? nombreDistritoAttr.toLowerCase() : '';
+            const poblacionDistrito = parseInt(fila.getAttribute('data-poblacion') || '');
+
+            // Filtro por nombre de distrito
+            const coincideDistrito = nombreDistrito.includes(filtroDistrito);
+            
+            // Filtro por población
+            let coincidePoblacion = true;
+            if (filtroPoblacion) {
+                const [min, max] = filtroPoblacion.split('-').map((num: string) => parseInt(num));
+                if (max) {
+                    coincidePoblacion = poblacionDistrito >= min && poblacionDistrito <= max;
+                } else {
+                    coincidePoblacion = poblacionDistrito >= min;
+                }
+            }
+            
+            // Mostrar u ocultar la fila
+            if (coincideDistrito && coincidePoblacion) {
+                (fila as HTMLElement).style.display = '';
+                contadorVisible++;
+            } else {
+                (fila as HTMLElement).style.display = 'none';
+            }
+        });
+        
+        // Actualizar contador
+        const contadorResultados = document.getElementById('contador-resultados');
+        if (contadorResultados) {
+            contadorResultados.textContent = `Mostrando ${contadorVisible} de 30 distritos`;
+        }
+    }
+
+    // Event listeners
+    const filtroDistritoInput = document.getElementById('filtro-distrito');
+    if (filtroDistritoInput) {
+        filtroDistritoInput.addEventListener('input', filtrarTabla);
+    }
+
+    const filtroPoblacionSelect = document.getElementById('filtro-poblacion');
+    if (filtroPoblacionSelect) {
+        filtroPoblacionSelect.addEventListener('change', filtrarTabla);
+    }
+    
+    // Limpiar filtros
+    const limpiarFiltrosBtn = document.getElementById('limpiar-filtros');
+    if (limpiarFiltrosBtn) {
+        limpiarFiltrosBtn.addEventListener('click', () => {
+            if (filtroDistritoInput) (filtroDistritoInput as HTMLInputElement).value = '';
+            if (filtroPoblacionSelect) (filtroPoblacionSelect as HTMLSelectElement).value = '';
+            filtrarTabla();
+        });
+    }
+</script>

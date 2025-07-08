@@ -1,14 +1,74 @@
 ---
 import '../styles/global.css';
 ---
+<script>
+    // Mobile menu toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (!mobileMenuButton || !mobileMenu) {
+            return;
+        }
+        const hamburgerLines = mobileMenuButton.querySelectorAll('span');
 
-<header class="flex justify-between items-center px-6 py-4 bg-white border-b border-gray-200 shadow-sm">
+        let isMenuOpen = false;
+        
+        mobileMenuButton.addEventListener('click', function() {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                // Open menu
+                mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
+                mobileMenu.classList.add('translate-y-0', 'opacity-100', 'visible');
+                
+                // Animate hamburger to X
+                hamburgerLines[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+                hamburgerLines[1].style.opacity = '0';
+                hamburgerLines[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+            } else {
+                // Close menu
+                mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'visible');
+                mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
+                
+                // Animate X back to hamburger
+                hamburgerLines[0].style.transform = 'none';
+                hamburgerLines[1].style.opacity = '1';
+                hamburgerLines[2].style.transform = 'none';
+            }
+        });
+        
+        // Close menu when clicking on menu items
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (isMenuOpen) {
+                    mobileMenuButton.click();
+                }
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (
+                isMenuOpen &&
+                !mobileMenuButton.contains(event.target as Node) &&
+                !mobileMenu.contains(event.target as Node)
+            ) {
+                mobileMenuButton.click();
+            }
+        });
+    });
+</script>
+
+<header class="flex justify-between items-center px-6 py-4 bg-white border-b border-gray-200 shadow-sm relative">
     <div class="logo">
         <a href="/" class="text-3xl font-bold text-[var(--primary)] hover:text-green-400 transition-colors">
             <p class="text-3xl font-bold">Pelee</p>
         </a>
     </div>
-    <nav>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:block">
         <ul class="flex space-x-8">
             <li>
                 <a href="/historia" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-green-50 transition-all">
@@ -32,4 +92,45 @@ import '../styles/global.css';
             </li>
         </ul>
     </nav>
+
+    <!-- Mobile Hamburger Button -->
+    <button 
+        id="mobile-menu-button" 
+        class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1 focus:outline-none"
+        aria-label="Toggle menu"
+    >
+        <span class="block w-6 h-0.5 bg-[var(--primary)] transition-all duration-300 ease-out"></span>
+        <span class="block w-6 h-0.5 bg-[var(--primary)] transition-all duration-300 ease-out"></span>
+        <span class="block w-6 h-0.5 bg-[var(--primary)] transition-all duration-300 ease-out"></span>
+    </button>
+    
+    <!-- Mobile Navigation Menu -->
+    <nav 
+        id="mobile-menu" 
+        class="md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow-lg transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-out z-50"
+    >
+        <ul class="flex flex-col py-4">
+            <li>
+                <a href="/historia" class="block text-[var(--primary)] hover:text-green-600 hover:bg-green-50 font-medium px-6 py-3 transition-all">
+                    Historia
+                </a>
+            </li>
+            <li>
+                <a href="/distritos" class="block text-[var(--primary)] hover:text-green-600 hover:bg-green-50 font-medium px-6 py-3 transition-all">
+                    Distritos
+                </a>
+            </li>
+            <li>
+                <a href="/mapa" class="block text-[var(--primary)] hover:text-green-600 hover:bg-green-50 font-medium px-6 py-3 transition-all">
+                    Mapa
+                </a>
+            </li>
+            <li>
+                <a href="/autoridades" class="block text-[var(--primary)] hover:text-green-600 hover:bg-green-50 font-medium px-6 py-3 transition-all">
+                    Autoridades
+                </a>
+            </li>
+        </ul>
+    </nav>
 </header>
+
