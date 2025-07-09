@@ -20,7 +20,7 @@ import '../styles/global.css';
                 // Open menu
                 mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
                 mobileMenu.classList.add('translate-y-0', 'opacity-100', 'visible');
-                
+
                 // Animate hamburger to X
                 hamburgerLines[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
                 hamburgerLines[1].style.opacity = '0';
@@ -94,8 +94,8 @@ import '../styles/global.css';
     </nav>
 
     <!-- Mobile Hamburger Button -->
-    <button 
-        id="mobile-menu-button" 
+    <button
+        id="mobile-menu-button"
         class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1 focus:outline-none"
         aria-label="Toggle menu"
     >
@@ -103,9 +103,9 @@ import '../styles/global.css';
         <span class="block w-6 h-0.5 bg-[var(--primary)] transition-all duration-300 ease-out"></span>
         <span class="block w-6 h-0.5 bg-[var(--primary)] transition-all duration-300 ease-out"></span>
     </button>
-    
+
     <!-- Mobile Navigation Menu -->
-    <nav 
+    <nav
         id="mobile-menu" 
         class="md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow-lg transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-out z-50"
     >
