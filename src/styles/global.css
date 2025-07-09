@@ -172,10 +172,28 @@
   }
 }
 
+/* Variables para modo claro */
 :root {
   --scaffold-bg: #F8F8F8;
   --primary: #16B269;
   --on-surface: #282828;
   font-family: 'AH', serif;
-  font-weight: 400;
+}
+
+/* Variables para modo oscuro */
+[data-theme="dark"] {
+  --scaffold-bg: #1a1a1a;
+  --on-surface: #e5e5e5;
+}
+
+/* Estilos base */
+html, body {
+  background-color: var(--scaffold-bg);
+  color: var(--on-surface);
+  margin: 0;
+  min-height: 100vh;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
