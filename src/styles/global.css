@@ -38,6 +38,15 @@
     font-weight: 900;
   }
 
+  h5{
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
   p{
     font-size: larger;
     font-weight: 500;
