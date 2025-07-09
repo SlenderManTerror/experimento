@@ -163,6 +163,18 @@
   }
 }
 
+ .title-padding {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+        .title-padding {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+    }
+
   :root {
 
     --scaffold-bg: #F8F8F8;
