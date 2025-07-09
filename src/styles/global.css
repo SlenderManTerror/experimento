@@ -172,15 +172,10 @@
   }
 }
 
-  :root {
-
-    --scaffold-bg: #F8F8F8;
-    --primary: #16B269;
-    --on-surface: #282828;
-    font-family: 'AH', serif;
-    font-weight: 400;
-
-
-  }
-
-
+:root {
+  --scaffold-bg: #F8F8F8;
+  --primary: #16B269;
+  --on-surface: #282828;
+  font-family: 'AH', serif;
+  font-weight: 400;
+}
