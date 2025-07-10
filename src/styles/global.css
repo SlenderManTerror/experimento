@@ -60,24 +60,24 @@
     border-collapse: var(--on-surface);
     border-spacing: 0;
     margin: 20px auto;
-    background-color: #16B269;
+    background-color: var(--surface);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.336);
-    border: 2px solid black;
   }
 
   th, td{
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid;
-    color:#F8F8F8
+    color: var(--on-surface);
   }
 
   th{
-    background-color: var(--primary);
+    background-color: var(--surface);
     font-weight: 700;
     font-size: 1rem;
+    color: var(--primary);
   }
 
   th:first-child {
@@ -114,9 +114,9 @@
    /* Estilos para componentes de formulario */
   .btn-base {
     padding: 0.5rem 1rem;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--scaffold-bg);
     border-radius: 0.375rem;
-    background-color: white;
+    background-color: var(--scaffold-bg);
     cursor: pointer;
     transition: all 0.2s;
     font-family: 'AH', serif;
@@ -124,35 +124,35 @@
 
   .btn-secondary {
     color: var(--on-surface);
-    border-color: #d1d5db;
+    border-color: var(--colorfiltro);
   }
 
   .btn-secondary:hover {
-    background-color: #f3f4f6;
+    background-color: var(--scaffold-bg);
     border-color: #9ca3af;
   }
 
   .btn-secondary.active {
     background-color: var(--primary);
-    color: white;
+    color: var(--textotabla);
     border-color: var(--primary);
   }
 
   .btn-primary {
     background-color: var(--primary);
-    color: white;
+    color: var(--textotabla);
     border-color: var(--primary);
   }
 
   .btn-primary:hover {
-    background-color: #139553;
-    border-color: #139553;
+    background-color: var(--primary);
+    border-color: var(--primary);
   }
 
   .input-base {
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--scaffold-bg);
     border-radius: 0.375rem;
     outline: none;
     transition: border-color 0.2s;
@@ -177,14 +177,23 @@
   --scaffold-bg: #F8F8F8;
   --primary: #16B269;
   --on-surface: #282828;
+  --surface: #e2e1e1;
+  --shadow:#dddddd;
+  --textotabla:#F8F8F8;
+  --colorfiltro:#282828;
   font-family: 'AH', serif;
 }
 
-/* Variables para modo oscuro */
-[data-theme="dark"] {
-  --scaffold-bg: #1a1a1a;
-  --on-surface: #e5e5e5;
-}
+@media (prefers-color-scheme: dark) {
+    :root {
+    --scaffold-bg: #1a1a1a;
+    --on-surface: #e5e5e5;
+    --surface: #282828;
+    --shadow:#252525;
+    --textotabla:#F8F8F8;
+    --colorfiltro:#F8F8F8;
+    }
+  }
 
 /* Estilos base */
 html, body {
