@@ -60,7 +60,7 @@ import '../styles/global.css';
     });
 </script>
 
-<header class="flex justify-between items-center px-6 py-4 bg-[var(--surface)]">
+<header class="flex justify-between items-center px-6 py-4 bg-[var(--surface)] relative">
     <div class="logo">
         <a href="/" class="text-3xl font-bold text-[var(--primary)] hover:text-green-400 transition-colors">
             <p class="text-3xl font-bold">Pelee</p>
@@ -71,22 +71,22 @@ import '../styles/global.css';
     <nav class="hidden md:block">
         <ul class="flex space-x-8">
             <li>
-                <a href="/historia" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-green-50 transition-all">
+                <a href="/historia" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
                     Historia
                 </a>
             </li>
             <li>
-                <a href="/distritos" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-green-50 transition-all">
+                <a href="/distritos" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
                     Distritos
                 </a>
             </li>
             <li>
-                <a href="/mapa" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-green-50 transition-all">
+                <a href="/mapa" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
                     Mapa
                 </a>
             </li>
             <li>
-                <a href="/autoridades" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-green-50 transition-all">
+                <a href="/autoridades" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
                     Autoridades
                 </a>
             </li>
@@ -96,7 +96,7 @@ import '../styles/global.css';
     <!-- Mobile Hamburger Button -->
     <button
         id="mobile-menu-button"
-        class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1 focus:outline-none"
+        class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1 focus:outline-none z-50"
         aria-label="Toggle menu"
     >
         <span class="block w-6 h-0.5 bg-[var(--primary)] transition-all duration-300 ease-out"></span>
@@ -107,30 +107,29 @@ import '../styles/global.css';
     <!-- Mobile Navigation Menu -->
     <nav
         id="mobile-menu" 
-        class="md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow-lg transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-out z-50"
+        class="md:hidden absolute top-full left-0 w-full bg-[var(--scaffold-bg)] border-b border-[var(--surface)] shadow-lg transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-out z-40"
     >
         <ul class="flex flex-col py-4">
             <li>
-                <a href="/historia" class="block text-[var(--primary)] hover:text-green-600 hover:bg-green-50 font-medium px-6 py-3 transition-all">
+                <a href="/historia" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
                     Historia
                 </a>
             </li>
             <li>
-                <a href="/distritos" class="block text-[var(--primary)] hover:text-green-600 hover:bg-green-50 font-medium px-6 py-3 transition-all">
+                <a href="/distritos" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
                     Distritos
                 </a>
             </li>
             <li>
-                <a href="/mapa" class="block text-[var(--primary)] hover:text-green-600 hover:bg-green-50 font-medium px-6 py-3 transition-all">
+                <a href="/mapa" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
                     Mapa
                 </a>
             </li>
             <li>
-                <a href="/autoridades" class="block text-[var(--primary)] hover:text-green-600 hover:bg-green-50 font-medium px-6 py-3 transition-all">
+                <a href="/autoridades" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
                     Autoridades
                 </a>
             </li>
         </ul>
     </nav>
 </header>
-
