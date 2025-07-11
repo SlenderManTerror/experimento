@@ -6,23 +6,61 @@ export interface Props {
   descripcion: string;
   alt?: string;
 }
+
 const { icono, titulo, subtitulo, descripcion, alt = titulo } = Astro.props;
 ---
 
-<div class="text-center bg-[var(--surface)] rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-  <img src={icono} alt={alt} class="block mx-auto mt-2 w-16 h-16 object-contain" />
-  <p class="mt-2 text-2xl font-semibold text-[var(--on-surface)] ">{titulo}</p>
-  <p class="text-4xl font-bold text-[var(--primary)] my-2">{subtitulo}</p>
+<div 
+  class="text-center bg-[var(--surface)] rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow focus-within:ring-2 focus-within:ring-[var(--primary)] focus-within:ring-offset-2"
+  tabindex="0"
+  role="article"
+>
+  <img 
+    src={icono} 
+    alt={alt} 
+    class="block mx-auto mt-2 w-16 h-16 object-contain" 
+  />
+  <h3 class="mt-2 text-2xl font-semibold text-[var(--on-surface)]">{titulo}</h3>
+  <h4 class="text-4xl font-bold text-[var(--primary)] my-2" lang="eo">{subtitulo}</h4>
   <p class="text-[var(--on-surface)]">{descripcion}</p>
 </div>
 
-<style>
-/* Evita errores internos de Vite buscando CSS en index 0 */
-img {
-  display: block;
-}
-</style>
-
 <script>
 // Evita errores internos de Vite buscando script en index 1
+
+// Mejoras de accesibilidad para navegación por teclado
+document.addEventListener('DOMContentLoaded', function() {
+  const tarjetas = document.querySelectorAll('[role="article"]');
+  
+  tarjetas.forEach(function(tarjeta) {
+    // Permitir activación con Enter y Espacio
+    tarjeta.addEventListener('keydown', function(e) {
+      // Aseguramos que e es un KeyboardEvent
+      const event = e instanceof KeyboardEvent ? e : null;
+      if (event && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        // Si la tarjeta tiene un enlace interno, activarlo
+        const enlace = tarjeta.querySelector('a');
+        if (enlace) {
+          enlace.click();
+        }
+      }
+    });
+
+    // Mejorar la experiencia de hover para usuarios de teclado
+    tarjeta.addEventListener('focus', function(e) {
+      const el = e.currentTarget;
+      if (el && typeof el === 'object' && 'style' in el) {
+        (el instanceof HTMLElement) && (el.style.transform = 'translateY(-2px)');
+      }
+    });
+    
+    tarjeta.addEventListener('blur', function(e) {
+      const el = e.currentTarget;
+      if (el && typeof el === 'object' && 'style' in el) {
+        (el instanceof HTMLElement) && (el.style.transform = 'translateY(0)');
+      }
+    });
+  });
+});
 </script>
