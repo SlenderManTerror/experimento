@@ -5,23 +5,17 @@ import FiltrosDistrito from '../components/FiltrosDistrito.astro';
 import distritos from '../assets/distritos.png';
 import Table from '../components/table.astro';
 ---
-
-<Layout title="Distritos" description="En está página está la lista de distritos de este hermoso mundo."/>
-
-<h1 class="text-center p-4 text-[var(--primary)]">
-    Distritos de Pelee
-</h1>
-
-<div class="mt-4 ml-4 mr-4">
-    <img src={distritos.src} alt="Lista de distritos." class="rounded-lg w-full border-2">
-
-	<br>
-
-    <!-- Componente de filtros -->
-    <FiltrosDistrito />
-
-	<!-- Componente de tabla -->
-	<Table />
-
-    <br>
-</div>
+<Layout title="Distritos" description="En está página está la lista de distritos de este hermoso mundo.">
+    <h1 class="text-center p-4 text-[var(--primary)]">
+        Distritos de Pelee
+    </h1>
+    <div class="mt-4 ml-4 mr-4">
+        <img src={distritos.src} alt="Lista de distritos." class="rounded-lg w-full border-2">
+        <br>
+        <!-- Componente de filtros -->
+        <FiltrosDistrito />
+        <!-- Componente de tabla -->
+        <Table />
+        <br>
+    </div>
+</Layout>

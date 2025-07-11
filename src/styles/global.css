@@ -181,6 +181,7 @@
   --shadow:#dddddd;
   --textotabla:#F8F8F8;
   --colorfiltro:#282828;
+  --textofooter:#282828;
   font-family: 'AH', serif;
 }
 
@@ -192,6 +193,7 @@
     --shadow:#252525;
     --textotabla:#F8F8F8;
     --colorfiltro:#F8F8F8;
+    --textofooter:#dadada;
     }
   }
 
