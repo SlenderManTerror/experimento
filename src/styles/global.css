@@ -191,6 +191,7 @@
   --textotabla:#F8F8F8;
   --colorfiltro:#282828;
   --textofooter:#282828;
+  --status:#4b4b4b;
   font-family: 'AH', serif;
 }
 
@@ -203,6 +204,7 @@
     --textotabla:#F8F8F8;
     --colorfiltro:#F8F8F8;
     --textofooter:#dadada;
+    --status:#16B269;
     }
   }
 
@@ -432,19 +434,19 @@ html, body {
 .card-icon {
     width: clamp(40px, 8vw, 48px);
     height: clamp(40px, 8vw, 48px);
-    background: rgba(22, 178, 105, 0.08);
+    background: var(--colorfiltro);
     border: 1px solid rgba(22, 178, 105, 0.2);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--primary);
+    color: var(--textotabla);
     flex-shrink: 0;
 }
 
 .card-badge {
-    background: rgba(22, 178, 105, 0.08);
-    color: var(--primary);
+    background: var(--on-surface);
+    color: var(--textotabla);
     padding: 4px 12px;
     border-radius: 12px;
     font-size: clamp(10px, 2vw, 12px);
@@ -480,7 +482,7 @@ html, body {
 
 .card-stats {
     font-size: clamp(12px, 2.5vw, 14px);
-    color: var(--primary);
+    color: var(--status);
     font-weight: 600;
     position: relative;
     z-index: 2;
