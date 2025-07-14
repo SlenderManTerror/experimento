@@ -1,0 +1,239 @@
+---
+// src/components/FloatingParticles.astro
+
+export interface Props {
+  count?: number;           // Número de partículas (default: 10)
+  brightness?: 'subtle' | 'normal' | 'bright' | 'neon'; // Nivel de brillo
+  size?: 'small' | 'medium' | 'large'; // Tamaño de partículas
+  speed?: 'slow' | 'normal' | 'fast'; // Velocidad de animación
+  color?: string;           // Color personalizado (hex o rgba)
+  disabled?: boolean;       // Desactivar completamente
+}
+
+const { 
+  count = 10, 
+  brightness = 'bright', 
+  size = 'medium', 
+  speed = 'normal',
+  color = '22, 178, 105', // RGB sin rgba()
+  disabled = false 
+} = Astro.props;
+
+// Generar array de partículas
+const particles = Array.from({ length: count }, (_, i) => i + 1);
+
+// Configuraciones de brillo
+const brightnessConfig = {
+  subtle: {
+    opacity: '0.2',
+    glow: '0 0 6px',
+    glowOpacity: '0.1'
+  },
+  normal: {
+    opacity: '0.4',
+    glow: '0 0 10px',
+    glowOpacity: '0.2'
+  },
+  bright: {
+    opacity: '0.6',
+    glow: '0 0 15px',
+    glowOpacity: '0.4'
+  },
+  neon: {
+    opacity: '0.9',
+    glow: '0 0 20px',
+    glowOpacity: '0.6'
+  }
+};
+
+// Configuraciones de tamaño
+const sizeConfig = {
+  small: { min: 3, max: 5 },
+  medium: { min: 4, max: 8 },
+  large: { min: 6, max: 12 }
+};
+
+// Configuraciones de velocidad
+const speedConfig = {
+  slow: { min: 18, max: 30 },
+  normal: { min: 11, max: 21 },
+  fast: { min: 6, max: 12 }
+};
+
+// Función para generar tamaño aleatorio
+const getRandomSize = (config: typeof sizeConfig.medium) => 
+  Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
+
+// Función para generar duración aleatoria
+const getRandomDuration = (config: typeof speedConfig.normal) => 
+  Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
+
+// Función para generar posición aleatoria
+const getRandomPosition = (index: number, total: number) => {
+  const basePosition = (index / total) * 90 + 5; // Distribuir uniformemente
+  const variation = (Math.random() - 0.5) * 10; // Variación de ±5%
+  return Math.max(5, Math.min(95, basePosition + variation));
+};
+
+// Función para generar delay aleatorio
+const getRandomDelay = () => Math.random() * 6;
+---
+
+{!disabled && (
+  <div class="floating-particles" data-brightness={brightness} data-size={size} data-speed={speed}>
+    {particles.map((particle, index) => (
+      <div 
+        class="particle" 
+        style={{
+          '--particle-size': `${getRandomSize(sizeConfig[size])}px`,
+          '--particle-duration': `${getRandomDuration(speedConfig[speed])}s`,
+          '--particle-delay': `${getRandomDelay()}s`,
+          '--particle-left': `${getRandomPosition(index, count)}%`,
+        }}
+      >
+      </div>
+    ))}
+  </div>
+)}
+
+<style define:vars={{ 
+  particleColor: color,
+  particleOpacity: brightnessConfig[brightness].opacity,
+  particleGlow: brightnessConfig[brightness].glow,
+  particleGlowOpacity: brightnessConfig[brightness].glowOpacity
+}}>
+  /* Contenedor de partículas */
+  .floating-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* Estilo base de partículas */
+  .particle {
+    position: absolute;
+    width: var(--particle-size);
+    height: var(--particle-size);
+    left: var(--particle-left);
+    background: rgba(var(--particleColor), var(--particleOpacity));
+    border-radius: 50%;
+    animation: floatUp var(--particle-duration) linear infinite;
+    animation-delay: var(--particle-delay);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
+
+  /* Configuraciones de brillo */
+  .floating-particles[data-brightness="subtle"] .particle {
+    box-shadow: var(--particleGlow) rgba(var(--particleColor), var(--particleGlowOpacity));
+  }
+
+  .floating-particles[data-brightness="normal"] .particle {
+    box-shadow: 
+      var(--particleGlow) rgba(var(--particleColor), var(--particleGlowOpacity)),
+      0 0 20px rgba(var(--particleColor), calc(var(--particleGlowOpacity) * 0.5));
+  }
+
+  .floating-particles[data-brightness="bright"] .particle {
+    box-shadow: 
+      var(--particleGlow) rgba(var(--particleColor), var(--particleGlowOpacity)),
+      0 0 30px rgba(var(--particleColor), calc(var(--particleGlowOpacity) * 0.5)),
+      inset 0 0 5px rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(var(--particleColor), 0.8);
+  }
+
+  .floating-particles[data-brightness="neon"] .particle {
+    box-shadow: 
+      0 0 10px rgb(var(--particleColor)),
+      0 0 20px rgb(var(--particleColor)),
+      0 0 30px rgb(var(--particleColor)),
+      0 0 40px rgba(var(--particleColor), 0.5);
+    border: 2px solid rgb(var(--particleColor));
+  }
+
+  /* Animación principal */
+  @keyframes floatUp {
+    0% {
+      transform: translateY(calc(100vh + 30px)) rotate(0deg) scale(0.3);
+      opacity: 0;
+    }
+    8% {
+      opacity: 0.8;
+      transform: translateY(calc(100vh - 50px)) rotate(30deg) scale(1);
+    }
+    92% {
+      opacity: 0.8;
+      transform: translateY(50px) rotate(330deg) scale(1);
+    }
+    100% {
+      transform: translateY(-30px) rotate(360deg) scale(0.3);
+      opacity: 0;
+    }
+  }
+
+  /* Modo oscuro - partículas más brillantes */
+  @media (prefers-color-scheme: dark) {
+    .particle {
+      background: rgba(var(--particleColor), calc(var(--particleOpacity) + 0.2));
+    }
+
+    .floating-particles[data-brightness="subtle"] .particle {
+      box-shadow: var(--particleGlow) rgba(var(--particleColor), calc(var(--particleGlowOpacity) + 0.1));
+    }
+
+    .floating-particles[data-brightness="normal"] .particle {
+      box-shadow: 
+        var(--particleGlow) rgba(var(--particleColor), calc(var(--particleGlowOpacity) + 0.1)),
+        0 0 25px rgba(var(--particleColor), calc(var(--particleGlowOpacity) * 0.6));
+    }
+
+    .floating-particles[data-brightness="bright"] .particle {
+      box-shadow: 
+        0 0 20px rgba(var(--particleColor), calc(var(--particleGlowOpacity) + 0.2)),
+        0 0 40px rgba(var(--particleColor), calc(var(--particleGlowOpacity) * 0.6)),
+        0 0 60px rgba(var(--particleColor), calc(var(--particleGlowOpacity) * 0.3)),
+        inset 0 0 8px rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(var(--particleColor), 1);
+    }
+
+    .floating-particles[data-brightness="neon"] .particle {
+      box-shadow: 
+        0 0 15px rgb(var(--particleColor)),
+        0 0 30px rgb(var(--particleColor)),
+        0 0 45px rgb(var(--particleColor)),
+        0 0 60px rgba(var(--particleColor), 0.8);
+    }
+  }
+
+  /* Optimización para móviles */
+  @media (max-width: 768px) {
+    .particle {
+      animation-duration: calc(var(--particle-duration) * 1.3) !important;
+      transform: scale(0.8);
+    }
+    
+    /* Reducir partículas en móvil */
+    .particle:nth-child(n+7) {
+      display: none;
+    }
+  }
+
+  /* Pantallas muy pequeñas */
+  @media (max-width: 480px) {
+    .particle:nth-child(n+5) {
+      display: none;
+    }
+  }
+
+  /* Respeto por preferencias de accesibilidad */
+  @media (prefers-reduced-motion: reduce) {
+    .floating-particles {
+      display: none;
+    }
+  }
+</style>

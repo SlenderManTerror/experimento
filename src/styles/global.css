@@ -32,6 +32,15 @@
     font-style: normal;
   }
 
+  html {
+    scroll-behavior: smooth;
+}
+
+  /* Opcional: Si tienes header fijo, ajusta el offset */
+    #explorar-cards {
+      scroll-margin-top: 80px;
+}
+
   h1 {
     font-size: 3rem;
     line-height: 1.1;
@@ -207,4 +216,553 @@ html, body {
 
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+/* CONTENEDOR PRINCIPAL - Responsivo */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 4vw, 24px); /* Padding fluido */
+}
+
+/* BACKGROUND - Mejorado para todos los tamaños */
+.page-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: var(--scaffold-bg);
+}
+
+.gradient-mesh {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(22, 178, 105, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(22, 178, 105, 0.04) 0%, transparent 50%);
+    animation: meshFloat 20s ease-in-out infinite;
+}
+
+.dots-pattern {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(22, 178, 105, 0.1) 1px, transparent 1px);
+    background-size: clamp(20px, 5vw, 30px) clamp(20px, 5vw, 30px); /* Puntos adaptativos */
+    opacity: 0.2;
+}
+
+/* HERO SECTION - Altura y espaciado fluido */
+.hero {
+    min-height: clamp(70vh, 85vh, 90vh); /* Altura adaptativa */
+    display: flex;
+    align-items: center;
+    padding: clamp(40px, 8vh, 80px) 0;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 clamp(12px, 3vw, 16px); /* Padding interno */
+}
+
+/* HERO BADGE - Tamaño adaptativo */
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(22, 178, 105, 0.1);
+    border: 1px solid rgba(22, 178, 105, 0.3);
+    padding: clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 16px);
+    border-radius: 20px;
+    font-size: clamp(12px, 2.5vw, 14px);
+    color: var(--primary);
+    margin-bottom: clamp(16px, 3vh, 24px);
+    font-family: 'AH', serif;
+    font-weight: 500;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+/* HERO TITLE - Tamaño fluido */
+.hero-title {
+    font-size: clamp(2.5rem, 7vw, 4rem); /* Tamaño fluido */
+    line-height: 1.1;
+    font-weight: 900;
+    margin-bottom: clamp(16px, 3vh, 24px);
+    color: var(--on-surface);
+}
+
+.accent {
+    color: var(--primary);
+}
+
+/* HERO DESCRIPTION - Texto adaptativo */
+.hero-description {
+    font-size: clamp(1rem, 2.8vw, 1.3rem);
+    color: var(--on-surface);
+    max-width: 600px;
+    margin: 0 auto clamp(24px, 5vh, 40px);
+    line-height: 1.6;
+    text-align: center;
+    font-family: 'AH', serif;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+/* HERO ACTIONS - Botones responsivos */
+.hero-actions {
+    display: flex;
+    gap: clamp(12px, 2.5vw, 16px);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: clamp(20px, 4vh, 32px);
+}
+
+.hero-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: clamp(16px, 3vh, 24px) clamp(24px, 5vw, 40px);
+    border-radius: 12px;
+    font-size: clamp(16px, 2.8vw, 20px);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'AH', serif;
+    min-width: max-content;
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+.hero-btn.btn-primary {
+    box-shadow: 0 4px 20px rgba(22, 178, 105, 0.25);
+}
+
+.hero-btn.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(22, 178, 105, 0.35);
+}
+
+.hero-btn.btn-secondary {
+    background: rgba(22, 178, 105, 0.05);
+    border: 1px solid rgba(22, 178, 105, 0.2);
+    color: var(--on-surface);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.hero-btn.btn-secondary:hover {
+    background: rgba(22, 178, 105, 0.1);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* MAIN SECTION - Espaciado adaptativo */
+.main-section {
+    padding: clamp(60px, 12vh, 100px) 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: clamp(40px, 8vh, 60px);
+}
+
+.section-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--on-surface);
+    margin-top: clamp(12px, 2vh, 16px);
+    opacity: 0.8;
+}
+
+/* CARDS GRID - Grid más flexible */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: clamp(16px, 3vw, 24px);
+    margin-top: clamp(20px, 4vh, 32px);
+}
+
+.main-card {
+    background: var(--surface);
+    border: 1px solid rgba(22, 178, 105, 0.1);
+    border-radius: 16px;
+    padding: clamp(20px, 4vw, 32px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.main-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(22, 178, 105, 0.03), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.main-card:hover::before {
+    opacity: 1;
+}
+
+.main-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(22, 178, 105, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.card-icon {
+    width: clamp(40px, 8vw, 48px);
+    height: clamp(40px, 8vw, 48px);
+    background: rgba(22, 178, 105, 0.08);
+    border: 1px solid rgba(22, 178, 105, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.card-badge {
+    background: rgba(22, 178, 105, 0.08);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: clamp(10px, 2vw, 12px);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(22, 178, 105, 0.2);
+    font-family: 'AH', serif;
+}
+
+.card-title {
+    font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+    font-weight: 700;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 2;
+    color: var(--on-surface);
+    font-family: 'AH', serif;
+}
+
+.card-description {
+    color: var(--on-surface);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+    font-family: 'AH', serif;
+    font-weight: 400;
+    text-align: left;
+    font-size: clamp(0.9rem, 2.2vw, 1rem);
+    opacity: 0.9;
+}
+
+.card-stats {
+    font-size: clamp(12px, 2.5vw, 14px);
+    color: var(--primary);
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+    font-family: 'AH', serif;
+}
+
+/* Enlace de card */
+.main-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+}
+
+.main-card-link:hover {
+    transform: translateY(-4px);
+}
+
+.main-card-link:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+    border-radius: 16px;
+}
+
+/* Indicador visual de que es clicable */
+.main-card-link .card-title::after {
+    content: "→";
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    color: var(--primary);
+    font-weight: normal;
+}
+
+.main-card-link:hover .card-title::after {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+/* STATS SECTION - Completamente responsiva */
+.stats-section {
+    padding: clamp(40px, 8vh, 80px) 0;
+    background: rgba(22, 178, 105, 0.02);
+    border-top: 1px solid rgba(22, 178, 105, 0.1);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    gap: clamp(20px, 4vw, 40px);
+    text-align: center;
+}
+
+.stat-item {
+    padding: clamp(16px, 3vw, 24px);
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid rgba(22, 178, 105, 0.1);
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-4px);
+    border-color: rgba(22, 178, 105, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-value {
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 8px;
+    line-height: 1;
+    font-family: 'AH', serif;
+}
+
+.stat-label {
+    font-size: clamp(0.8rem, 2.2vw, 1rem);
+    color: var(--on-surface);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-family: 'AH', serif;
+    opacity: 0.8;
+}
+
+/* MODO OSCURO - Ajustes responsivos */
+@media (prefers-color-scheme: dark) {
+    .main-card:hover {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .stat-item:hover {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .gradient-mesh {
+        background:
+            radial-gradient(circle at 20% 20%, rgba(22, 178, 105, 0.06) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(22, 178, 105, 0.03) 0%, transparent 50%);
+    }
+
+    .dots-pattern {
+        background-image: radial-gradient(rgba(22, 178, 105, 0.08) 1px, transparent 1px);
+        opacity: 0.15;
+    }
+
+    .hero-badge {
+        background: rgba(22, 178, 105, 0.15);
+        border-color: rgba(22, 178, 105, 0.4);
+    }
+
+    .hero-btn.btn-secondary {
+        background: rgba(22, 178, 105, 0.08);
+        border-color: rgba(22, 178, 105, 0.3);
+    }
+
+    .main-card {
+        border-color: rgba(22, 178, 105, 0.15);
+    }
+
+    .main-card::before {
+        background: linear-gradient(135deg, rgba(22, 178, 105, 0.05), transparent);
+    }
+
+    .card-icon {
+        background: rgba(22, 178, 105, 0.12);
+        border-color: rgba(22, 178, 105, 0.3);
+    }
+
+    .card-badge {
+        background: rgba(22, 178, 105, 0.12);
+        border-color: rgba(22, 178, 105, 0.3);
+    }
+
+    .stats-section {
+        background: rgba(22, 178, 105, 0.03);
+        border-top-color: rgba(22, 178, 105, 0.15);
+    }
+
+    .stat-item {
+        border-color: rgba(22, 178, 105, 0.15);
+    }
+}
+
+/* ANIMACIONES */
+@keyframes meshFloat {
+    0%, 100% { 
+        transform: translate(0, 0) rotate(0deg); 
+    }
+    33% { 
+        transform: translate(30px, -30px) rotate(120deg); 
+    }
+    66% { 
+        transform: translate(-20px, 20px) rotate(240deg); 
+    }
+}
+
+/* BREAKPOINTS ESPECÍFICOS */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: 70vh;
+        padding: 60px 0;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    
+    .hero-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+    
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .card-badge {
+        align-self: flex-end;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-badge {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+    
+    .hero {
+        min-height: 60vh;
+        padding: 40px 0;
+    }
+    
+    .hero-content {
+        padding: 0 12px;
+    }
+    
+    .main-card {
+        padding: 20px;
+    }
+}
+
+/* TOUCH DEVICES - Desactivar hover */
+@media (hover: none) and (pointer: coarse) {
+    .main-card:hover {
+        transform: none;
+    }
+    
+    .hero-btn:hover {
+        transform: none;
+    }
+    
+    .stat-item:hover {
+        transform: none;
+    }
+    
+    .main-card:active {
+        transform: scale(0.98);
+    }
+    
+    .hero-btn:active {
+        transform: scale(0.95);
+    }
+}
+
+/* ALTURA PEQUEÑA - Móviles en landscape */
+@media (max-height: 600px) {
+    .hero {
+        min-height: 50vh;
+        padding: 20px 0;
+    }
+}
+
+/* LANDSCAPE MÓVIL */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        min-height: 60vh;
+        padding: 40px 0;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-description {
+        font-size: 1.1rem;
+    }
 }
