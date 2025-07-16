@@ -9,10 +9,17 @@ import Justicia from '../assets/Justicia.svg';
 import Recreacion from '../assets/Recreacion.svg';
 import Banco from '../assets/Banco.svg';
 import TarjetaAutoridad from '../components/TarjetaAutoridad.astro';
+import Particulas from '../components/Particulas.astro';
 ---
 
 <Layout title="Autoridades" description="En esta página verás el funcionamiento de Pelee.">
-    <h1 class="text-center p-4 text-[var(--primary)]">
+    <Particulas
+            count={10}
+            brightness="bright"
+            size="medium"
+            speed="normal"
+        />
+    <h1 class="text-center p-10.5 text-[var(--primary)]">
         Cómo funciona Pelee?
     </h1>
     <br>

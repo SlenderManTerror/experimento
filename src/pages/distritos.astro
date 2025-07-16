@@ -4,9 +4,16 @@ import Layout from '../layouts/Layout.astro';
 import FiltrosDistrito from '../components/FiltrosDistrito.astro';
 import distritos from '../assets/distritos.png';
 import Table from '../components/table.astro';
+import Particulas from '../components/Particulas.astro';
 ---
 <Layout title="Distritos" description="En está página está la lista de distritos de este hermoso mundo.">
-    <h1 class="text-center p-4 text-[var(--primary)]">
+    <Particulas
+            count={10}
+            brightness="bright"
+            size="medium"
+            speed="normal"
+        />
+    <h1 class="text-center p-10.5 text-[var(--primary)]">
         Distritos de Pelee
     </h1>
     <div class="mt-4 ml-4 mr-4">

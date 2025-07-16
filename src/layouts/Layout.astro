@@ -1,33 +1,578 @@
 ---
 import Header from '../components/Header.astro'
 import favicon from '../assets/Esperanto(1).svg';
+import BackgroundMusic from '../components/BackgroundMusic.astro';
+
 const { title } = Astro.props;
 const { description } = Astro.props;
+const { noMusic = false } = Astro.props; // Opcional: para páginas sin música
+
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 ---
-
-
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
         <meta name="description" content={description}>
-
-		<link rel="icon" type="image/svg+xml" href={favicon.src} />
-
-
-
-	</head>
-	 <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
+        <link rel="icon" type="image/svg+xml" href={favicon.src} />
+        
+        <!-- Preload música para mejor rendimiento -->
+        {!noMusic && (
+            <link rel="preload" href="/audio/495747__clacksberg__minimal-ambient-musicatmosphere-fragment.mp3" as="audio" type="audio/mpeg" />
+        )}
+    </head>
+     <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
+        <!-- Componente de música -->
+        {!noMusic && (
+            <BackgroundMusic 
+                src="/audio/495747__clacksberg__minimal-ambient-musicatmosphere-fragment.mp3"
+                volume={0.2}
+                fadeIn={true}
+                showControls={true}
+            />
+        )}
+        
         <Header />
         <main style="flex: 1;">
             <slot />
         </main>
         <Footer />
+        
+        <!-- Script global para continuidad entre páginas -->
+        {!noMusic && (
+            <script>
+                // Sistema simple pero efectivo de audio global
+                console.log('🎵 Loading global music system');
+                
+                // Crear o reutilizar audio global con fallback automático
+                // @ts-ignore
+                if (!window.globalAudio) {
+                    console.log('🎵 Creating new global audio with format detection');
+                    
+                    // Detectar qué formatos soporta el navegador
+                    const testAudio = document.createElement('audio');
+                    const formats = {
+                        mp3: testAudio.canPlayType('audio/mpeg'),
+                        ogg: testAudio.canPlayType('audio/ogg'),
+                        wav: testAudio.canPlayType('audio/wav'),
+                        m4a: testAudio.canPlayType('audio/mp4')
+                    };
+                    
+                    console.log('🎵 Browser audio support:', formats);
+                    
+                    // Intentar formatos en orden de preferencia
+                    const audioFiles = [
+                        { src: '/audio/495747__clacksberg__minimal-ambient-musicatmosphere-fragment.mp3', type: 'mp3' },
+                        { src: '/audio/pelee-theme.mp3', type: 'mp3' },
+                        { src: '/audio/pelee-theme.ogg', type: 'ogg' },
+                        { src: '/audio/pelee-theme.wav', type: 'wav' },
+                        { src: '/audio/pelee-theme.m4a', type: 'm4a' }
+                    ];
+                    
+                    // Encontrar el primer formato soportado
+                    let selectedAudio = null;
+                    for (const audio of audioFiles) {
+                        // @ts-ignore
+                        if (formats[audio.type] && formats[audio.type] !== '') {
+                            selectedAudio = audio;
+                            // @ts-ignore
+                            console.log('🎵 Selected format:', audio.type, '- Support level:', formats[audio.type]);
+                            break;
+                        }
+                    }
+                    
+                    if (!selectedAudio) {
+                        console.error('❌ No supported audio format found');
+                        selectedAudio = audioFiles[0]; // Fallback a MP3
+                    }
+                    
+                    // @ts-ignore
+                    window.globalAudio = new Audio(selectedAudio.src);
+                    // @ts-ignore
+                    window.globalAudio.loop = true;
+                    // @ts-ignore
+                    window.globalAudio.volume = 0.2;
+                    // @ts-ignore
+                    window.globalAudio.preload = 'auto';
+                    
+                    // Debug: eventos del audio
+                    // @ts-ignore
+                    window.globalAudio.addEventListener('loadstart', () => console.log('🎵 Audio loading started'));
+                    // @ts-ignore
+                    window.globalAudio.addEventListener('canplay', () => console.log('🎵 Audio can start playing'));
+                    // @ts-ignore
+                    window.globalAudio.addEventListener('canplaythrough', () => console.log('🎵 Audio can play through'));
+                    // @ts-ignore
+                    window.globalAudio.addEventListener('error', /** @param {any} e */ (e) => {
+                        console.error('❌ Audio error details:', {
+                            error: e,
+                            // @ts-ignore
+                            audioError: window.globalAudio.error,
+                            // @ts-ignore
+                            networkState: window.globalAudio.networkState,
+                            // @ts-ignore
+                            readyState: window.globalAudio.readyState,
+                            // @ts-ignore
+                            src: window.globalAudio.src
+                        });
+                        
+                        // Intentar diagnóstico del error
+                        // @ts-ignore
+                        if (window.globalAudio.error) {
+                            // @ts-ignore
+                            // @ts-ignore
+                            const errorCode = window.globalAudio.error.code;
+                            const errorMessages = {
+                                1: 'MEDIA_ERR_ABORTED - The user aborted the audio',
+                                2: 'MEDIA_ERR_NETWORK - Network error while loading audio', 
+                                3: 'MEDIA_ERR_DECODE - Error decoding audio file',
+                                4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - Audio format not supported'
+                            };
+                            // @ts-ignore
+                            console.error('❌ Error code:', errorCode, '-', errorMessages[errorCode] || 'Unknown error');
+                            
+                            // Auto-fallback si hay error de formato
+                            if (errorCode === 4) {
+                                console.log('🎵 Attempting auto-fallback to MP3...');
+                                // @ts-ignore
+                                // @ts-ignore
+                                window.globalAudio.src = '/audio/pelee-theme.mp3';
+                            }
+                        }
+                    });
+                    // @ts-ignore
+                    window.globalAudio.addEventListener('play', () => console.log('▶️ Audio started playing'));
+                    // @ts-ignore
+                    window.globalAudio.addEventListener('pause', () => console.log('⏸️ Audio paused'));
+                }
+                
+                // Variables globales simples
+                // @ts-ignore
+                window.musicInitialized = window.musicInitialized || false;
+                
+                // Función simplificada para iniciar música
+                // @ts-ignore
+                window.startGlobalMusic = async function() {
+                    try {
+                        console.log('🎵 Starting global music...');
+                        // @ts-ignore
+                        await window.globalAudio.play();
+                        // @ts-ignore
+                        window.musicInitialized = true;
+                        
+                        // Guardar estado COMPLETO
+                        sessionStorage.setItem('musicActive', 'true');
+                        sessionStorage.setItem('musicInitialized', 'true');
+                        // @ts-ignore
+                        sessionStorage.setItem('musicTime', window.globalAudio.currentTime.toString());
+                        
+                        console.log('✅ Global music started and state saved');
+                        return true;
+                        
+                    } catch (e) {
+                        console.log('❌ Could not start music:', e);
+                        return false;
+                    }
+                };
+                
+                // Función para sincronizar controles
+                // @ts-ignore
+                window.syncMusicControls = function() {
+                    const playIcon = document.querySelector('.play-icon');
+                    const pauseIcon = document.querySelector('.pause-icon');
+                    const volumeIcon = document.querySelector('.volume-icon');
+                    const muteIcon = document.querySelector('.mute-icon');
+                    const volumeSlider = document.getElementById('volume-slider');
+                    const controls = document.getElementById('music-controls');
+                    
+                    if (controls) {
+                        controls.classList.add('show');
+                    }
+                    
+                    // Actualizar botones según estado del audio global
+                    // @ts-ignore
+                    if (window.globalAudio) {
+                        // Play/Pause button
+                        // @ts-ignore
+                        if (!window.globalAudio.paused) {
+                            playIcon?.classList.add('hidden');
+                            pauseIcon?.classList.remove('hidden');
+                        } else {
+                            playIcon?.classList.remove('hidden');
+                            pauseIcon?.classList.add('hidden');
+                        }
+                        
+                        // Mute button
+                        // @ts-ignore
+                        if (window.globalAudio.muted) {
+                            volumeIcon?.classList.add('hidden');
+                            muteIcon?.classList.remove('hidden');
+                        } else {
+                            volumeIcon?.classList.remove('hidden');
+                            muteIcon?.classList.add('hidden');
+                        }
+                        
+                        // Volume slider
+                        if (volumeSlider) {
+                            // @ts-ignore
+                            volumeSlider.value = window.globalAudio.volume;
+                        }
+                    }
+                };
+                
+                // Configurar controles cuando el DOM esté listo
+                document.addEventListener('DOMContentLoaded', () => {
+                    console.log('🎵 Setting up page controls');
+                    
+                    // Configurar controles después de un momento
+                    setTimeout(() => {
+                        // Sincronizar controles
+                        // @ts-ignore
+                        window.syncMusicControls();
+                        
+                        // Restaurar música si estaba activa - MEJORADO
+                        const wasActive = sessionStorage.getItem('musicActive') === 'true';
+                        const wasInitialized = sessionStorage.getItem('musicInitialized') === 'true';
+                        const savedTime = parseFloat(sessionStorage.getItem('musicTime') || '0');
+                        const savedVolume = parseFloat(sessionStorage.getItem('musicVolume') || '0.2');
+                        const savedMuted = sessionStorage.getItem('musicMuted') === 'true';
+                        
+                        // @ts-ignore
+                        if (wasActive && wasInitialized && window.globalAudio) {
+                            console.log('🎵 Restoring complete music state...');
+                            
+                            // Marcar como inicializada PRIMERO
+                            // @ts-ignore
+                            window.musicInitialized = true;
+                            
+                            // Restaurar propiedades
+                            // @ts-ignore
+                            // @ts-ignore
+                            window.globalAudio.currentTime = savedTime;
+                            // @ts-ignore
+                            // @ts-ignore
+                            window.globalAudio.volume = savedVolume;
+                            // @ts-ignore
+                            // @ts-ignore
+                            window.globalAudio.muted = savedMuted;
+                            
+                            // INTENTAR reproducción (puede fallar por autoplay policy)
+                            // @ts-ignore
+                            window.globalAudio.play().then(() => {
+                                console.log('🎵 Music auto-resumed successfully');
+                                // @ts-ignore
+                                window.syncMusicControls();
+                            // @ts-ignore
+                            }).catch((/** @param {any} e */ e) => {
+                                console.log('⚠️ Auto-resume blocked, will resume on next user interaction');
+                                console.log('🎵 Music is ready to resume when user interacts');
+                                // No mostrar como error, es comportamiento normal del navegador
+                                // @ts-ignore
+                                window.syncMusicControls();
+                            });
+                        }
+                        
+                        // Configurar event listeners para controles
+                        const playPauseBtn = document.getElementById('play-pause-btn');
+                        const muteBtn = document.getElementById('mute-btn');
+                        const volumeSlider = document.getElementById('volume-slider');
+                        
+                        // Play/Pause
+                        playPauseBtn?.addEventListener('click', async () => {
+                        // @ts-ignore
+                        if (!window.musicInitialized) {
+                            // @ts-ignore
+                            await window.startGlobalMusic();
+                                // @ts-ignore
+                                window.syncMusicControls();
+                                return;
+                            }
+                            
+                        // @ts-ignore
+                        if (window.globalAudio.paused) {
+                            // @ts-ignore
+                            await window.globalAudio.play();
+                            } else {
+                                // @ts-ignore
+                                window.globalAudio.pause();
+                            }
+                            // @ts-ignore
+                            window.syncMusicControls();
+                        });
+                        
+                        // Mute
+                        muteBtn?.addEventListener('click', async () => {
+                        // @ts-ignore
+                        if (!window.musicInitialized) {
+                            // @ts-ignore
+                            await window.startGlobalMusic();
+                                // @ts-ignore
+                                window.syncMusicControls();
+                                return;
+                            }
+                            
+                            // @ts-ignore
+                            window.globalAudio.muted = !window.globalAudio.muted;
+                            // @ts-ignore
+                            window.syncMusicControls();
+                        });
+                        
+                        // Volume
+                        // @ts-ignore
+                        volumeSlider?.addEventListener('input', (e) => {
+                            // @ts-ignore
+                            if (window.globalAudio) {
+                                // @ts-ignore
+                                window.globalAudio.volume = parseFloat(e.target.value);
+                            }
+                        });
+                        
+                        // Activación automática con cualquier clic - SIEMPRE ACTIVA
+                        const setupAutoResume = () => {
+                            // @ts-ignore
+                            const resumeMusic = async (e) => {
+                                // Solo actuar si la música debería estar reproduciéndose
+                                // @ts-ignore
+                                if (sessionStorage.getItem('musicActive') === 'true' && window.globalAudio?.paused) {
+                                    console.log('🎵 User interaction detected, resuming music...');
+                                    try {
+                                        // @ts-ignore
+                                        window.musicInitialized = true;
+                                        // @ts-ignore
+                                        await window.globalAudio.play();
+                                        // @ts-ignore
+                                        window.syncMusicControls();
+                                        console.log('✅ Music resumed after user interaction');
+                                        
+                                        // Remover listener después de éxito
+                                        document.removeEventListener('click', resumeMusic, true);
+                                        document.removeEventListener('touchstart', resumeMusic, true);
+                                        document.removeEventListener('keydown', resumeMusic, true);
+                                    } catch (e) {
+                                        console.log('❌ Still could not resume:', e);
+                                    }
+                                }
+                                
+                                // Si no está inicializada, inicializar
+                                // @ts-ignore
+                                if (!window.musicInitialized) {
+                                    console.log('🎵 Initializing music with user interaction...');
+                                    // @ts-ignore
+                                    const success = await window.startGlobalMusic();
+                                    if (success) {
+                                        // @ts-ignore
+                                        window.syncMusicControls();
+                                        // No remover listener aquí por si necesita reanudar después
+                                        console.log('🎵 Music initialized successfully');
+                                    }
+                                }
+                            };
+                            
+                            // Configurar múltiples tipos de interacción
+                            document.addEventListener('click', resumeMusic, { capture: true });
+                            document.addEventListener('touchstart', resumeMusic, { capture: true });
+                            document.addEventListener('keydown', resumeMusic, { capture: true });
+                            
+                            console.log('🎵 Auto-resume set up for user interactions');
+                        };
+                        
+                        // Siempre configurar auto-resume
+                        setupAutoResume();
+                        
+                        // RESPALDO: Verificar estado pero no forzar
+                        setTimeout(() => {
+                            // @ts-ignore
+                            if (sessionStorage.getItem('musicActive') === 'true' && window.globalAudio?.paused) {
+                                console.log('🎵 Music is paused but ready to resume on interaction');
+                                // @ts-ignore
+                                window.musicInitialized = true; // Asegurar que está marcada como inicializada
+                                // @ts-ignore
+                                window.syncMusicControls(); // Actualizar controles UI
+                            }
+                        }, 1000);
+                        
+                        // Debug manual: agregar función global para testing
+                        // @ts-ignore
+                        window.testMusic = async function() {
+                            console.log('🔧 Manual music test...');
+                            console.log('🔧 Current audio state:', {
+                                // @ts-ignore
+                                src: window.globalAudio?.src,
+                                // @ts-ignore
+                                readyState: window.globalAudio?.readyState,
+                                // @ts-ignore
+                                paused: window.globalAudio?.paused,
+                                // @ts-ignore
+                                volume: window.globalAudio?.volume,
+                                // @ts-ignore
+                                error: window.globalAudio?.error
+                            });
+                            // @ts-ignore
+                            const success = await window.startGlobalMusic();
+                            console.log('🔧 Test result:', success);
+                            return success;
+                        };
+                        
+                        // Función para probar con diferentes archivos
+                        // @ts-ignore
+                        window.testAudioFile = function(filename) {
+                            console.log('🔧 Testing audio file:', filename);
+                            
+                            // Crear nuevo audio para testing
+                            const testAudio = new Audio(filename);
+                            testAudio.addEventListener('canplay', () => {
+                                console.log('✅ File can be played:', filename);
+                                testAudio.remove();
+                            });
+                            testAudio.addEventListener('error', /** @param {any} e */ (e) => {
+                                console.error('❌ File error:', filename, testAudio.error);
+                                testAudio.remove();
+                            });
+                            
+                            return testAudio;
+                        };
+                        
+                        // Función para verificar si archivos existen
+                        // @ts-ignore
+                        window.checkFiles = async function() {
+                            const files = [
+                                '/audio/691725__lightmister__ambient-music.mp3',
+                                '/audio/pelee-theme.mp3',
+                                '/audio/pelee-theme.ogg',
+                                '/audio/pelee-theme.wav'
+                            ];
+                            
+                            console.log('🔧 Checking audio files...');
+                            
+                            for (const file of files) {
+                                try {
+                                    const response = await fetch(file, { method: 'HEAD' });
+                                    console.log(`${response.ok ? '✅' : '❌'} ${file} - Status: ${response.status}`);
+                                    
+                                    if (response.ok) {
+                                        const size = response.headers.get('content-length');
+                                        const type = response.headers.get('content-type');
+                                        console.log(`   Size: ${size ? (Number(size)/1024).toFixed(1) + 'KB' : 'unknown'}, Type: ${type || 'unknown'}`);
+                                    }
+                                // @ts-ignore
+                                } catch (/** @param {any} e */ e) {
+                                    // @ts-ignore
+                                    console.log(`❌ ${file} - Error: ${e.message}`);
+                                }
+                            }
+                        };
+                        
+                        // Test simple con archivo específico
+                        // @ts-ignore
+                        window.testDirectMP3 = function() {
+                            console.log('🔧 Testing your MP3 directly...');
+                            const testAudio = new Audio('/audio/691725__lightmister__ambient-music.mp3');
+                            
+                            testAudio.addEventListener('loadstart', () => console.log('🔧 Your MP3 loading started'));
+                            testAudio.addEventListener('canplay', () => {
+                                console.log('✅ Your MP3 can play!');
+                                // @ts-ignore
+                                testAudio.play().then(() => {
+                                    console.log('✅ Your MP3 playing successfully!');
+                                    setTimeout(() => {
+                                        testAudio.pause();
+                                        console.log('🔧 MP3 test completed');
+                                    }, 2000);
+                                // @ts-ignore
+                                }).catch(e => console.log('❌ MP3 play failed:', e));
+                            });
+                            // @ts-ignore
+                            testAudio.addEventListener('error', (e) => {
+                                console.error('❌ Your MP3 test error:', testAudio.error);
+                            });
+                            
+                            testAudio.load();
+                            return testAudio;
+                        };
+                        
+                        // Auto-check al cargar
+                        setTimeout(() => {
+                            console.log('🔧 Running automatic file check...');
+                            // @ts-ignore
+                            window.checkFiles();
+                        }, 1000);
+                        
+                        // Función para verificar y forzar reproducción
+                        // @ts-ignore
+                        window.forceResumeMusic = function() {
+                            console.log('🔧 Force resume check...');
+                            console.log('State:', {
+                                // @ts-ignore
+                                initialized: window.musicInitialized,
+                                // @ts-ignore
+                                paused: window.globalAudio?.paused,
+                                // @ts-ignore
+                                currentTime: window.globalAudio?.currentTime,
+                                sessionActive: sessionStorage.getItem('musicActive')
+                            });
+                            
+                            // @ts-ignore
+                            if (window.globalAudio && sessionStorage.getItem('musicActive') === 'true') {
+                                // @ts-ignore
+                                window.musicInitialized = true;
+                                // @ts-ignore
+                                window.globalAudio.play().then(() => {
+                                    console.log('✅ Force resume successful');
+                                    // @ts-ignore
+                                    window.syncMusicControls();
+                                // @ts-ignore
+                                }).catch(/** @param {any} e */ e => {
+                                    console.log('❌ Force resume failed (normal if no recent user interaction):', e.name);
+                                    console.log('💡 Try clicking anywhere on the page first, then run forceResumeMusic() again');
+                                });
+                            } else {
+                                console.log('⚠️ No music to resume or not active');
+                            }
+                        };
+                        
+                        console.log('🔧 Debug commands:');
+                        console.log('  - forceResumeMusic() - Force music to resume');
+                        console.log('  - testDirectMP3() - Test MP3 directly');
+                        
+                    }, document.body.classList.contains('splash-active') ? 1000 : 300);
+                });
+                
+                // Guardar estado antes de navegar - COMPLETO
+                window.addEventListener('beforeunload', () => {
+                    // @ts-ignore
+                    if (window.globalAudio && window.musicInitialized) {
+                        sessionStorage.setItem('musicActive', 'true');
+                        sessionStorage.setItem('musicInitialized', 'true');
+                        // @ts-ignore
+                        sessionStorage.setItem('musicTime', window.globalAudio.currentTime.toString());
+                        // @ts-ignore
+                        sessionStorage.setItem('musicVolume', window.globalAudio.volume.toString());
+                        // @ts-ignore
+                        sessionStorage.setItem('musicMuted', window.globalAudio.muted.toString());
+                        console.log('🎵 Complete music state saved before navigation');
+                    }
+                });
+                
+                // Interceptar navegación
+                document.addEventListener('click', /** @param {any} e */ (e) => {
+                    // @ts-ignore
+                    const link = e.target.closest ? e.target.closest('a') : null;
+                    if (link && link.href && link.href.startsWith(window.location.origin)) {
+                        // @ts-ignore
+                        if (window.globalAudio && window.musicInitialized) {
+                            sessionStorage.setItem('musicActive', 'true');
+                            sessionStorage.setItem('musicInitialized', 'true');
+                            // @ts-ignore
+                            sessionStorage.setItem('musicTime', window.globalAudio.currentTime.toString());
+                            console.log('🎵 Music state saved for navigation');
+                        }
+                    }
+                }, true);
+            </script>
+        )}
     </body>
 </html>
-

@@ -1,0 +1,492 @@
+<!-- Sección de Historia de Pelee -->
+<section class="historia-pelee">
+    <style>
+        .historia-pelee {
+            position: relative;
+            z-index: 1;
+            font-family: AH, serif;
+        }
+
+        .historia-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section para Historia de Pelee */
+        .historia-hero {
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.1) 0%, rgba(var(--primary-rgb), 0.05) 100%);
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .historia-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(var(--primary-rgb), 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .historia-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .historia-hero h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-weight: 900;
+        }
+
+        .historia-hero p {
+            font-size: 1.2rem;
+            color: var(--textofooter);
+            margin-bottom: 1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Timeline de la Historia de Pelee */
+        .pelee-timeline {
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .pelee-timeline h3 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            width: 4px;
+            background: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            opacity: 0.3;
+        }
+
+        .timeline-event {
+            position: relative;
+            margin: 3rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .timeline-event:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-event:nth-child(3) { animation-delay: 0.4s; }
+        .timeline-event:nth-child(4) { animation-delay: 0.6s; }
+        .timeline-event:nth-child(5) { animation-delay: 0.8s; }
+
+        .timeline-content {
+            position: relative;
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            width: 45%;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(var(--primary-rgb), 0.2);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+            border-color: var(--primary);
+        }
+
+        .timeline-event:nth-child(odd) .timeline-content {
+            left: 0;
+        }
+
+        .timeline-event:nth-child(even) .timeline-content {
+            left: 55%;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 30px;
+            left: 50%;
+            margin-left: -10px;
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5);
+        }
+
+        .timeline-content h4 {
+            color: var(--reproductor);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content .date {
+            color: var(--reproductor);
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content p {
+            color: var(--on-surface);
+            line-height: 1.6;
+        }
+
+        /* Distritos Grid */
+        .distritos-section {
+            margin: 4rem 0;
+        }
+
+        .distritos-section h3 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .distritos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .distrito-card {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(var(--primary-rgb), 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .distrito-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(var(--primary-rgb), 0.1), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .distrito-card:hover::before {
+            left: 100%;
+        }
+
+        .distrito-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+            border-color: var(--primary);
+        }
+
+        .distrito-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .distrito-card h4 {
+            color: var(--reproductor);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .distrito-card p {
+            color: var(--on-surface);
+            line-height: 1.6;
+        }
+
+        /* Sitios Históricos */
+        .sitios-historicos {
+            margin: 4rem 0;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.05) 0%, rgba(var(--primary-rgb), 0.1) 100%);
+            border-radius: 20px;
+        }
+
+        .sitios-historicos h3 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .sitios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .sitio-card {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.2rem;
+            text-align: center;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(var(--primary-rgb), 0.2);
+            min-height: 200px;
+        }
+
+        .sitio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+        }
+
+        .sitio-card h4 {
+            color: var(--reproductor);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .sitio-card p {
+            color: var(--on-surface);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .historia-hero h2 {
+                font-size: 2rem;
+            }
+            
+            .timeline-content {
+                width: 90%;
+                left: 5% !important;
+            }
+            
+            .timeline-line {
+                left: 20px;
+            }
+            
+            .timeline-dot {
+                left: 20px;
+            }
+            
+            .distritos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <div class="historia-container">
+        <!-- Hero Section -->
+        <div class="historia-hero">
+            <div class="historia-hero-content">
+                <h2>Historia de Pelee</h2>
+                <p>Descubre los orígenes y la evolución de esta fascinante ciudad digital en el planeta Drenio.</p>
+            </div>
+        </div>
+
+        <!-- Timeline de la Historia -->
+        <div class="pelee-timeline">
+            <h3>Cronología de Pelee</h3>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-event">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Fundación de Pelee</h4>
+                        <div class="date">Era Digital 2847</div>
+                        <p>La ciudad digital de Pelee fue fundada como el primer asentamiento tecnológico en el planeta Drenio, estableciendo las bases para una civilización completamente digital.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>División en Distritos</h4>
+                        <div class="date">Era Digital 2851</div>
+                        <p>Se estableció la división de Pelee en 30 distritos especializados, cada uno con funciones específicas para optimizar la organización urbana y social.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Gran Expansión</h4>
+                        <div class="date">Era Digital 2856</div>
+                        <p>Pelee experimentó su mayor crecimiento, expandiendo sus límites y desarrollando la infraestructura tecnológica que la caracteriza hoy en día.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>Era Moderna</h4>
+                        <div class="date">Era Digital 2860 - Presente</div>
+                        <p>Pelee se convierte en la metrópolis digital más avanzada de Drenio, siendo un modelo de innovación y desarrollo tecnológico sostenible.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4>División en Distritos</h4>
+                        <div class="date">Era Digital 2851</div>
+                        <p>Se estableció la división de Pelee en 30 distritos especializados, cada uno con funciones específicas para optimizar la organización urbana y social.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Distritos -->
+        <div class="distritos-section">
+            <h3>Distritos Principales</h3>
+            <div class="distritos-grid">
+                <div class="distrito-card">
+                    <div class="distrito-icon">🏛️</div>
+                    <h4>Distrito Central</h4>
+                    <p>Centro administrativo y gubernamental de Pelee, donde se toman las decisiones más importantes para la ciudad.</p>
+                </div>
+
+                <div class="distrito-card">
+                    <div class="distrito-icon">🔬</div>
+                    <h4>Distrito Tecnológico</h4>
+                    <p>Hub de innovación y desarrollo tecnológico, hogar de los principales centros de investigación digital.</p>
+                </div>
+
+                <div class="distrito-card">
+                    <div class="distrito-icon">🏢</div>
+                    <h4>Distrito Comercial</h4>
+                    <p>Centro económico de la ciudad, donde se realizan las principales actividades comerciales y financieras.</p>
+                </div>
+
+                <div class="distrito-card">
+                    <div class="distrito-icon">🌿</div>
+                    <h4>Distrito Verde</h4>
+                    <p>Área dedicada a la sostenibilidad y preservación del ecosistema digital de Pelee.</p>
+                </div>
+
+                <div class="distrito-card">
+                    <div class="distrito-icon">🎨</div>
+                    <h4>Distrito Cultural</h4>
+                    <p>Espacio dedicado al arte, la cultura y la expresión creativa de los habitantes de Pelee.</p>
+                </div>
+
+                <div class="distrito-card">
+                    <div class="distrito-icon">🏠</div>
+                    <h4>Distrito Residencial</h4>
+                    <p>Zonas habitacionales donde viven los ciudadanos digitales de Pelee en armonía y comunidad.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sitios Históricos -->
+        <div class="sitios-historicos">
+            <h3>Sitios Históricos de Pelee</h3>
+            <div class="sitios-grid">
+                <div class="sitio-card">
+                    <h4>🏛️ Plaza Digital Central</h4>
+                    <p>Primer punto de encuentro establecido en Pelee, símbolo de la unidad digital.</p>
+                </div>
+
+                <div class="sitio-card">
+                    <h4>🗼 Torre de Comunicaciones</h4>
+                    <p>Estructura icónica que conecta todos los distritos de la ciudad.</p>
+                </div>
+
+                <div class="sitio-card">
+                    <h4>📚 Biblioteca Digital</h4>
+                    <p>Repositorio histórico del conocimiento acumulado desde la fundación.</p>
+                </div>
+
+                <div class="sitio-card">
+                    <h4>🌟 Monumento a los Fundadores</h4>
+                    <p>Homenaje a los pioneros que establecieron la primera ciudad digital en Drenio.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Animación de entrada para elementos
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                (entry.target as HTMLElement).style.opacity = '1';
+                (entry.target as HTMLElement).style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observar elementos para animaciones
+    document.querySelectorAll('.distrito-card, .sitio-card').forEach(card => {
+        (card as HTMLElement).style.opacity = '0';
+        (card as HTMLElement).style.transform = 'translateY(20px)';
+        (card as HTMLElement).style.transition = 'all 0.6s ease';
+        observer.observe(card);
+    });
+
+    // Efecto parallax suave para el hero
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.historia-hero');
+        if (hero) {
+            (hero as HTMLElement).style.transform = `translateY(${scrolled * 0.1}px)`;
+        }
+    });
+</script>

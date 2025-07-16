@@ -192,6 +192,7 @@
   --colorfiltro:#282828;
   --textofooter:#282828;
   --status:#4b4b4b;
+  --reproductor:#282828;
   font-family: 'AH', serif;
 }
 
@@ -205,6 +206,7 @@
     --colorfiltro:#F8F8F8;
     --textofooter:#dadada;
     --status:#16B269;
+    --reproductor:#16B269;
     }
   }
 
