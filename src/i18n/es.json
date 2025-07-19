@@ -1,0 +1,241 @@
+{
+  "nav": {
+    "historia": "Historia",
+    "distritos": "Distritos",
+    "mapa": "Mapa",
+    "autoridades": "Autoridades"
+  },
+  "content": {
+    "title": "Inicio",
+    "description": "Bienvenido a Pelee. En esta página conocerás este magnífico universo digital."
+  },
+  "hero": {
+    "badge": "✨ La Ciudad Digital",
+    "welcomeTo": "Bienvenido a",
+    "description": "Tu portal completo para explorar este asombroso mundo. Accede a nuestra historia, información y conecta con todo lo que necesitas.",
+    "exploreButton": "Explorar ahora"
+  },
+  "sections": {
+    "explore": "Explora Pelee",
+    "subtitle": "Cuatro portales para descubrir todo sobre nuestra comunidad"
+  },
+  "cards": {
+    "historia": {
+      "badge": "Patrimonio",
+      "title": "Historia",
+      "description": "Descubre el rico patrimonio de Pelee a través de archivos históricos, fotografías y testimonios que han marcado nuestra identidad.",
+      "stats": "12,400 años documentados"
+    },
+    "distritos": {
+      "badge": "Urbano",
+      "title": "Distritos",
+      "description": "Explora las diferentes zonas que conforman Pelee. Cada distrito tiene su propia personalidad y servicios únicos.",
+      "stats": "30 distritos disponibles"
+    },
+    "mapa": {
+      "badge": "Navegación",
+      "title": "Mapa",
+      "description": "Navega por Pelee con nuestro sistema de mapas interactivo. Encuentra ubicaciones y puntos de interés fácilmente.",
+      "stats": "Mapa interactivo"
+    },
+    "autoridades": {
+      "badge": "Oficial",
+      "title": "Autoridades",
+      "description": "Accede a servicios gubernamentales y información oficial. Gestiona trámites y mantente informado sobre regulaciones.",
+      "stats": "Servicios 24/7"
+    }
+  },
+  "footer": {
+    "description": "Descubre la historia, los distritos y todo lo que necesitas saber sobre Pelee. Tu guía completa para explorar nuestra comunidad.",
+    "navigation": "Navegación",
+    "copyright": "© {year} Pelee. Todos los derechos reservados.",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Uso",
+    "cookies": "Cookies"
+  },
+  "historia": {
+    "hero": {
+      "title": "Historia de Pelee",
+      "description": "Descubre los orígenes y la evolución de esta fascinante ciudad digital en el planeta Drenio."
+    },
+    "timeline": {
+      "title": "Cronología de Pelee",
+      "events": {
+        "founding": {
+          "title": "Fundación de Pelee",
+          "date": "Era Digital 2847",
+          "description": "La ciudad digital de Pelee fue fundada como el primer asentamiento tecnológico en el planeta Drenio, estableciendo las bases para una civilización completamente digital."
+        },
+        "districts": {
+          "title": "División en Distritos",
+          "date": "Era Digital 2851",
+          "description": "Se estableció la división de Pelee en 30 distritos especializados, cada uno con funciones específicas para optimizar la organización urbana y social."
+        },
+        "expansion": {
+          "title": "Gran Expansión",
+          "date": "Era Digital 2856",
+          "description": "Pelee experimentó su mayor crecimiento, expandiendo sus límites y desarrollando la infraestructura tecnológica que la caracteriza hoy en día."
+        },
+        "modern": {
+          "title": "Era Moderna",
+          "date": "Era Digital 2860 - Presente",
+          "description": "Pelee se convierte en la metrópolis digital más avanzada de Drenio, siendo un modelo de innovación y desarrollo tecnológico sostenible."
+        }
+      }
+    },
+    "districts": {
+      "title": "Distritos Principales",
+      "central": {
+        "title": "Distrito Central",
+        "description": "Centro administrativo y gubernamental de Pelee, donde se toman las decisiones más importantes para la ciudad."
+      },
+      "tech": {
+        "title": "Distrito Tecnológico",
+        "description": "Hub de innovación y desarrollo tecnológico, hogar de los principales centros de investigación digital."
+      },
+      "commercial": {
+        "title": "Distrito Comercial",
+        "description": "Centro económico de la ciudad, donde se realizan las principales actividades comerciales y financieras."
+      },
+      "green": {
+        "title": "Distrito Verde",
+        "description": "Área dedicada a la sostenibilidad y preservación del ecosistema digital de Pelee."
+      },
+      "cultural": {
+        "title": "Distrito Cultural",
+        "description": "Espacio dedicado al arte, la cultura y la expresión creativa de los habitantes de Pelee."
+      },
+      "residential": {
+        "title": "Distrito Residencial",
+        "description": "Zonas habitacionales donde viven los ciudadanos digitales de Pelee en armonía y comunidad."
+      }
+    },
+    "sites": {
+      "title": "Sitios Históricos de Pelee",
+      "plaza": {
+        "title": "Plaza Digital Central",
+        "description": "Primer punto de encuentro establecido en Pelee, símbolo de la unidad digital."
+      },
+      "tower": {
+        "title": "Torre de Comunicaciones",
+        "description": "Estructura icónica que conecta todos los distritos de la ciudad."
+      },
+      "library": {
+        "title": "Biblioteca Digital",
+        "description": "Repositorio histórico del conocimiento acumulado desde la fundación."
+      },
+      "monument": {
+        "title": "Monumento a los Fundadores",
+        "description": "Homenaje a los pioneros que establecieron la primera ciudad digital en Drenio."
+      }
+    }
+  },
+  "distritos": {
+    "title": "Distritos de Pelee",
+    "description": "En está página está la lista de distritos de este hermoso mundo.",
+    "imageAlt": "Lista de distritos.",
+    "filters": {
+      "title": "Filtros",
+      "searchLabel": "Buscar distrito:",
+      "placeholder": "Escribe el nombre del distrito...",
+      "sortLabel": "Ordenar por:",
+      "populationUp": "Población ↑",
+      "populationDown": "Población ↓",
+      "clearFilters": "Limpiar Filtros",
+      "showing": "Mostrando",
+      "of": "de",
+      "districts": "distritos"
+    },
+    "table": {
+      "district": "Distrito",
+      "population": "Población",
+      "description": "Descripción"
+    },
+    "districts": {
+      "sed": "Distrito capital de Pelee",
+      "captan": "Distrito torre de Pelee",
+      "sonoj": "Distrito de la monarquía de Pelee",
+      "luchad": "Distrito de la última lucha de Pelee",
+      "teroj": "Distrito del pasado de Pelee",
+      "radianta": "Distrito desértico de Pelee",
+      "naval": "Distrito marítimo de Pelee",
+      "eure": "Distrito agrícola de Pelee",
+      "ki": "Distrito oriental de Pelee",
+      "kondado": "Distrito de los mekas de Pelee",
+      "lundono": "Distrito armonía de Pelee",
+      "estatico": "Distrito más frío de Pelee",
+      "real": "Distrito médico de Pelee",
+      "jurakano": "Distrito volcánico de Pelee",
+      "nebula": "Distrito tecnológico de Pelee",
+      "u": "Distrito lujuria de Pelee",
+      "kuartio": "Distrito de la luz de Pelee",
+      "kohadran": "Distrito del ferrocaril de Pelee",
+      "kanoa": "Distrito forestal de Pelee",
+      "dolia": "Distrito lujoso de Pelee",
+      "leuten": "Distrito de la suerte de Pelee",
+      "stormo": "Distrito del motor de Pelee",
+      "novaki": "Distrito del pequeño oriente de Pelee",
+      "temburgo": "Distrito bancario de Pelee",
+      "gedeon": "Microdistrito de Pelee",
+      "sanki": "Distrito hermano de Pelee",
+      "ligilo": "Distrito industrial de Pelee",
+      "angeloj": "Distrito aéreo de Pelee",
+      "do-tou": "Distrito más antiguo de Pelee",
+      "ladigo": "Distrito plaza de Pelee",
+      "default": "Distrito de Pelee"
+    }
+  },
+  "mapa": {
+    "title": "El Mapa de Pelee",
+    "description": "En esta página verás el mapa del mundo de Pelee.",
+    "mapTitle": "Mapa de Pelee"
+  },
+  "autoridades": {
+    "title": "¿Cómo funciona Pelee?",
+    "description": "En esta página verás el funcionamiento de Pelee.",
+    "introText": "En Pelee existen una serie de autoridades que manejan las leyes dependiendo la prioridad necesaria.",
+    "republic": "Respubliko de Pelee",
+    "authorities": {
+      "education": {
+        "name": "Eduka Aŭtoritato",
+        "description": "(Autoridad de Educación)",
+        "alt": "Libro abierto con una estrella"
+      },
+      "security": {
+        "name": "Sekureco Aŭtoritato",
+        "description": "(Autoridad de Seguridad)",
+        "alt": "Escudo con una estrella"
+      },
+      "health": {
+        "name": "Sano Aŭtoritato",
+        "description": "(Autoridad de Salud)",
+        "alt": "Rectángulo redondo con una S y una estrella"
+      },
+      "infrastructure": {
+        "name": "Infrastrukturo Aŭtoritato",
+        "description": "(Autoridad de Infraestructura)",
+        "alt": "Círculo con una estrella"
+      },
+      "science": {
+        "name": "Scienco Aŭtoritato",
+        "description": "(Autoridad de Ciencia)",
+        "alt": "Gráfico de barras con una estrella"
+      },
+      "justice": {
+        "name": "Justeco Aŭtoritato",
+        "description": "(Autoridad de Justicia)",
+        "alt": "Anillo con una estrella"
+      },
+      "recreation": {
+        "name": "Rekreacio Aŭtoritato",
+        "description": "(Autoridad de Recreación)",
+        "alt": "Tres estrellas juntas"
+      },
+      "temsoj": {
+        "name": "Temsoj Aŭtoritato",
+        "description": "(Autoridad del Temsoj)",
+        "alt": "Rectángulo redondo con una estrella y una flecha hacia arriba"
+      }
+    }
+  }
+}

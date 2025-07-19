@@ -1,0 +1,241 @@
+{
+  "nav": {
+    "historia": "Historio",
+    "distritos": "Distriktoj",
+    "mapa": "Mapo",
+    "autoridades": "Aŭtoritatoj"
+  },
+  "content": {
+    "title": "Hejmo",
+    "description": "Bonvenon al Pelee. En ĉi tiu paĝo vi konos ĉi tiun mirindan ciferecan universon."
+  },
+  "hero": {
+    "badge": "✨ La Cifereca Urbo",
+    "welcomeTo": "Bonvenon al",
+    "description": "Via kompleta portalo por esplori ĉi tiun mirindan mondon. Aliru nian historion, informojn kaj konektiĝu kun ĉio, kion vi bezonas.",
+    "exploreButton": "Esplori nun"
+  },
+  "sections": {
+    "explore": "Esploru Pelee",
+    "subtitle": "Kvar portaloj por malkovri ĉion pri nia komunumo"
+  },
+  "cards": {
+    "historia": {
+      "badge": "Heredaĵo",
+      "title": "Historio",
+      "description": "Malkovru la riĉan heredaĵon de Pelee per historiaj arkivoj, fotoj kaj atestoj, kiuj formis nian identecon.",
+      "stats": "12,400 dokumentitaj jaroj"
+    },
+    "distritos": {
+      "badge": "Urba",
+      "title": "Distriktoj",
+      "description": "Esploru la malsamajn zonojn, kiuj formas Pelee. Ĉiu distrikto havas sian propran personeco kaj unikajn servojn.",
+      "stats": "30 haveblaj distriktoj"
+    },
+    "mapa": {
+      "badge": "Navigado",
+      "title": "Mapo",
+      "description": "Navigi tra Pelee per nia interaga maparo-sistemo. Trovu lokojn kaj interesaĵojn facile.",
+      "stats": "Interaga mapo"
+    },
+    "autoridades": {
+      "badge": "Oficiala",
+      "title": "Aŭtoritatoj",
+      "description": "Aliru registarajn servojn kaj oficialajn informojn. Administru procedojn kaj restu informita pri reguloj.",
+      "stats": "24/7 servoj"
+    }
+  },
+  "footer": {
+    "description": "Malkovru la historion, distriktojn kaj ĉion, kion vi bezonas scii pri Pelee. Via kompleta gvidilo por esplori nian komunumon.",
+    "navigation": "Navigado",
+    "copyright": "© {year} Pelee. Ĉiuj rajtoj rezervitaj.",
+    "privacy": "Privatecan Politiko",
+    "terms": "Uzkondiĉoj",
+    "cookies": "Kuketoj"
+  },
+  "historia": {
+    "hero": {
+      "title": "Historio de Pelee",
+      "description": "Malkovru la originojn kaj evoluon de ĉi tiu fascinanta cifereca urbo sur planedo Drenio."
+    },
+    "timeline": {
+      "title": "Kronologio de Pelee",
+      "events": {
+        "founding": {
+          "title": "Fundado de Pelee",
+          "date": "Cifereca Erao 2847",
+          "description": "La cifereca urbo Pelee estis fondita kiel la unua teknologia kolonio sur planedo Drenio, establante la fundamentojn por tute cifereca civilizo."
+        },
+        "districts": {
+          "title": "Divido en Distriktojn",
+          "date": "Cifereca Erao 2851",
+          "description": "Estis establita la divido de Pelee en 30 specialajn distriktojn, ĉiu kun specifaj funkcioj por optimumigi urban kaj socian organizadon."
+        },
+        "expansion": {
+          "title": "Granda Ekspansio",
+          "date": "Cifereca Erao 2856",
+          "description": "Pelee spertis sian plej grandan kreskon, ekspansiante siajn limojn kaj disvolviante la teknologian infrastrukturon kiu karakterizas ĝin hodiaŭ."
+        },
+        "modern": {
+          "title": "Moderna Erao",
+          "date": "Cifereca Erao 2860 - Nuno",
+          "description": "Pelee fariĝas la plej altnivela cifereca metropolo sur Drenio, estante modelo de novigo kaj daŭripova teknologia disvolvo."
+        }
+      }
+    },
+    "districts": {
+      "title": "Ĉefaj Distriktoj",
+      "central": {
+        "title": "Centra Distrikto",
+        "description": "Administra kaj registara centro de Pelee, kie estas farataj la plej gravaj decidoj por la urbo."
+      },
+      "tech": {
+        "title": "Teknologia Distrikto",
+        "description": "Centro de novigo kaj teknologia disvolvo, hejmo de la ĉefaj ciferecaj esploraj centroj."
+      },
+      "commercial": {
+        "title": "Komerca Distrikto",
+        "description": "Ekonomia centro de la urbo, kie okazas la ĉefaj komercaj kaj financaj aktivecoj."
+      },
+      "green": {
+        "title": "Verda Distrikto",
+        "description": "Areo dediĉita al daŭripoveco kaj konservado de la cifereca ekosistemo de Pelee."
+      },
+      "cultural": {
+        "title": "Kultura Distrikto",
+        "description": "Spaco dediĉita al arto, kulturo kaj kreiva esprimo de la loĝantoj de Pelee."
+      },
+      "residential": {
+        "title": "Loĝeja Distrikto",
+        "description": "Loĝejaj areoj kie vivas la ciferecaj civitanoj de Pelee en harmonio kaj komunumo."
+      }
+    },
+    "sites": {
+      "title": "Historiaj Lokoj de Pelee",
+      "plaza": {
+        "title": "Centra Cifereca Placo",
+        "description": "Unua renkontiĝloko establita en Pelee, simbolo de cifereca unueco."
+      },
+      "tower": {
+        "title": "Komunikada Turo",
+        "description": "Ikona strukturo kiu konektas ĉiujn distriktojn de la urbo."
+      },
+      "library": {
+        "title": "Cifereca Biblioteko",
+        "description": "Historia deponejo de la scio akumulita ekde la fundado."
+      },
+      "monument": {
+        "title": "Monumento al la Fondintoj",
+        "description": "Omaĝo al la pioniroj kiuj establis la unuan ciferecan urbon sur Drenio."
+      }
+    }
+  },
+  "distritos": {
+    "title": "Distriktoj de Pelee",
+    "description": "En ĉi tiu paĝo estas la listo de distriktoj de ĉi tiu bela mondo.",
+    "imageAlt": "Listo de distriktoj.",
+    "filters": {
+      "title": "Filtriloj",
+      "searchLabel": "Serĉi distrikton:",
+      "placeholder": "Tajpu la nomon de la distrikto...",
+      "sortLabel": "Ordigi laŭ:",
+      "populationUp": "Loĝantaro ↑",
+      "populationDown": "Loĝantaro ↓",
+      "clearFilters": "Malpurigi Filtrilojn",
+      "showing": "Montrante",
+      "of": "de",
+      "districts": "distriktoj"
+    },
+    "table": {
+      "district": "Distrikto",
+      "population": "Loĝantaro",
+      "description": "Priskribo"
+    },
+    "districts": {
+      "sed": "Ĉefurba distrikto de Pelee",
+      "captan": "Tura distrikto de Pelee",
+      "sonoj": "Monarkia distrikto de Pelee",
+      "luchad": "Lasta batala distrikto de Pelee",
+      "teroj": "Pasinta distrikto de Pelee",
+      "radianta": "Dezerta distrikto de Pelee",
+      "naval": "Mara distrikto de Pelee",
+      "eure": "Agrikultura distrikto de Pelee",
+      "ki": "Orienta distrikto de Pelee",
+      "kondado": "Meka distrikto de Pelee",
+      "lundono": "Harmonia distrikto de Pelee",
+      "estatico": "Plej malvarma distrikto de Pelee",
+      "real": "Medicina distrikto de Pelee",
+      "jurakano": "Vulkana distrikto de Pelee",
+      "nebula": "Teknologia distrikto de Pelee",
+      "u": "Luksa distrikto de Pelee",
+      "kuartio": "Luma distrikto de Pelee",
+      "kohadran": "Fervoja distrikto de Pelee",
+      "kanoa": "Arbara distrikto de Pelee",
+      "dolia": "Luksa distrikto de Pelee",
+      "leuten": "Fortuna distrikto de Pelee",
+      "stormo": "Motora distrikto de Pelee",
+      "novaki": "Malgranda orienta distrikto de Pelee",
+      "temburgo": "Banka distrikto de Pelee",
+      "gedeon": "Mikrodistrikto de Pelee",
+      "sanki": "Frata distrikto de Pelee",
+      "ligilo": "Industria distrikto de Pelee",
+      "angeloj": "Aera distrikto de Pelee",
+      "do-tou": "Plej malnova distrikto de Pelee",
+      "ladigo": "Placa distrikto de Pelee",
+      "default": "Distrikto de Pelee"
+    }
+  },
+  "mapa": {
+    "title": "La Mapo de Pelee",
+    "description": "En ĉi tiu paĝo vi vidos la mapon de la mondo de Pelee.",
+    "mapTitle": "Mapo de Pelee"
+  },
+  "autoridades": {
+    "title": "Kiel funkcias Pelee?",
+    "description": "En ĉi tiu paĝo vi vidos kiel funkcias Pelee.",
+    "introText": "En Pelee ekzistas serio da aŭtoritatoj kiuj administras la leĝojn depende de la necesa prioritato.",
+    "republic": "Respubliko de Pelee",
+    "authorities": {
+      "education": {
+        "name": "Eduka Aŭtoritato",
+        "description": "(Eduka Aŭtoritato)",
+        "alt": "Malferma libro kun stelo"
+      },
+      "security": {
+        "name": "Sekureca Aŭtoritato",
+        "description": "(Sekureca Aŭtoritato)",
+        "alt": "Ŝildo kun stelo"
+      },
+      "health": {
+        "name": "Sana Aŭtoritato",
+        "description": "(Sana Aŭtoritato)",
+        "alt": "Rondangula rektangulo kun S kaj stelo"
+      },
+      "infrastructure": {
+        "name": "Infrastruktura Aŭtoritato",
+        "description": "(Infrastruktura Aŭtoritato)",
+        "alt": "Cirklo kun stelo"
+      },
+      "science": {
+        "name": "Scienca Aŭtoritato",
+        "description": "(Scienca Aŭtoritato)",
+        "alt": "Stanga diagramo kun stelo"
+      },
+      "justice": {
+        "name": "Justa Aŭtoritato",
+        "description": "(Justa Aŭtoritato)",
+        "alt": "Ringo kun stelo"
+      },
+      "recreation": {
+        "name": "Rekreacia Aŭtoritato",
+        "description": "(Rekreacia Aŭtoritato)",
+        "alt": "Tri steloj kune"
+      },
+      "temsoj": {
+        "name": "Temsoj Aŭtoritato",
+        "description": "(Temsoj Aŭtoritato)",
+        "alt": "Rondangula rektangulo kun stelo kaj sago supren"
+      }
+    }
+  }
+}

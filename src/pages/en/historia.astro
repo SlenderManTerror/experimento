@@ -1,0 +1,21 @@
+---
+import { getTranslations } from '../../i18n/utils.js';
+import Layout from '../../layouts/Layout.astro';
+import Particulas from '../../components/Particulas.astro';
+import HistoriaComponent from '../../components/Historia.astro';
+
+const currentLang = 'en';
+const t = await getTranslations(currentLang);
+---
+<Layout 
+    title={t.nav.historia} 
+    description="On this page you will learn about the interesting history of the districts, government functions and historical sites."
+>
+    <Particulas
+        count={10}
+        brightness="bright"
+        size="medium"
+        speed="normal"
+    />
+    <!--HistoriaComponent />-->
+</Layout>

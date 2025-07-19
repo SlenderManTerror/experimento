@@ -1,3 +1,11 @@
+---
+// src/components/Historia.astro - VERSIÓN MULTIIDIOMA
+import { getTranslations } from '../i18n/utils.js';
+
+const currentLang = Astro.currentLocale || 'es';
+const t = await getTranslations(currentLang);
+---
+
 <!-- Sección de Historia de Pelee -->
 <section class="historia-pelee">
     <style>
@@ -175,6 +183,7 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
+            padding: 0 1rem;
         }
 
         .distrito-card {
@@ -329,59 +338,50 @@
         <!-- Hero Section -->
         <div class="historia-hero">
             <div class="historia-hero-content">
-                <h2>Historia de Pelee</h2>
-                <p>Descubre los orígenes y la evolución de esta fascinante ciudad digital en el planeta Drenio.</p>
+                <h2>{t.historia.hero.title}</h2>
+                <p>{t.historia.hero.description}</p>
             </div>
         </div>
 
         <!-- Timeline de la Historia -->
         <div class="pelee-timeline">
-            <h3>Cronología de Pelee</h3>
+            <h3>{t.historia.timeline.title}</h3>
             <div class="timeline-container">
                 <div class="timeline-line"></div>
                 
                 <div class="timeline-event">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <h4>Fundación de Pelee</h4>
-                        <div class="date">Era Digital 2847</div>
-                        <p>La ciudad digital de Pelee fue fundada como el primer asentamiento tecnológico en el planeta Drenio, estableciendo las bases para una civilización completamente digital.</p>
+                        <h4>{t.historia.timeline.events.founding.title}</h4>
+                        <div class="date">{t.historia.timeline.events.founding.date}</div>
+                        <p>{t.historia.timeline.events.founding.description}</p>
                     </div>
                 </div>
 
                 <div class="timeline-event">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <h4>División en Distritos</h4>
-                        <div class="date">Era Digital 2851</div>
-                        <p>Se estableció la división de Pelee en 30 distritos especializados, cada uno con funciones específicas para optimizar la organización urbana y social.</p>
+                        <h4>{t.historia.timeline.events.districts.title}</h4>
+                        <div class="date">{t.historia.timeline.events.districts.date}</div>
+                        <p>{t.historia.timeline.events.districts.description}</p>
                     </div>
                 </div>
 
                 <div class="timeline-event">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <h4>Gran Expansión</h4>
-                        <div class="date">Era Digital 2856</div>
-                        <p>Pelee experimentó su mayor crecimiento, expandiendo sus límites y desarrollando la infraestructura tecnológica que la caracteriza hoy en día.</p>
+                        <h4>{t.historia.timeline.events.expansion.title}</h4>
+                        <div class="date">{t.historia.timeline.events.expansion.date}</div>
+                        <p>{t.historia.timeline.events.expansion.description}</p>
                     </div>
                 </div>
 
                 <div class="timeline-event">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <h4>Era Moderna</h4>
-                        <div class="date">Era Digital 2860 - Presente</div>
-                        <p>Pelee se convierte en la metrópolis digital más avanzada de Drenio, siendo un modelo de innovación y desarrollo tecnológico sostenible.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-event">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h4>División en Distritos</h4>
-                        <div class="date">Era Digital 2851</div>
-                        <p>Se estableció la división de Pelee en 30 distritos especializados, cada uno con funciones específicas para optimizar la organización urbana y social.</p>
+                        <h4>{t.historia.timeline.events.modern.title}</h4>
+                        <div class="date">{t.historia.timeline.events.modern.date}</div>
+                        <p>{t.historia.timeline.events.modern.description}</p>
                     </div>
                 </div>
             </div>
@@ -389,68 +389,68 @@
 
         <!-- Sección de Distritos -->
         <div class="distritos-section">
-            <h3>Distritos Principales</h3>
+            <h3>{t.historia.districts.title}</h3>
             <div class="distritos-grid">
                 <div class="distrito-card">
                     <div class="distrito-icon">🏛️</div>
-                    <h4>Distrito Central</h4>
-                    <p>Centro administrativo y gubernamental de Pelee, donde se toman las decisiones más importantes para la ciudad.</p>
+                    <h4>{t.historia.districts.central.title}</h4>
+                    <p>{t.historia.districts.central.description}</p>
                 </div>
 
                 <div class="distrito-card">
                     <div class="distrito-icon">🔬</div>
-                    <h4>Distrito Tecnológico</h4>
-                    <p>Hub de innovación y desarrollo tecnológico, hogar de los principales centros de investigación digital.</p>
+                    <h4>{t.historia.districts.tech.title}</h4>
+                    <p>{t.historia.districts.tech.description}</p>
                 </div>
 
                 <div class="distrito-card">
                     <div class="distrito-icon">🏢</div>
-                    <h4>Distrito Comercial</h4>
-                    <p>Centro económico de la ciudad, donde se realizan las principales actividades comerciales y financieras.</p>
+                    <h4>{t.historia.districts.commercial.title}</h4>
+                    <p>{t.historia.districts.commercial.description}</p>
                 </div>
 
                 <div class="distrito-card">
                     <div class="distrito-icon">🌿</div>
-                    <h4>Distrito Verde</h4>
-                    <p>Área dedicada a la sostenibilidad y preservación del ecosistema digital de Pelee.</p>
+                    <h4>{t.historia.districts.green.title}</h4>
+                    <p>{t.historia.districts.green.description}</p>
                 </div>
 
                 <div class="distrito-card">
                     <div class="distrito-icon">🎨</div>
-                    <h4>Distrito Cultural</h4>
-                    <p>Espacio dedicado al arte, la cultura y la expresión creativa de los habitantes de Pelee.</p>
+                    <h4>{t.historia.districts.cultural.title}</h4>
+                    <p>{t.historia.districts.cultural.description}</p>
                 </div>
 
                 <div class="distrito-card">
                     <div class="distrito-icon">🏠</div>
-                    <h4>Distrito Residencial</h4>
-                    <p>Zonas habitacionales donde viven los ciudadanos digitales de Pelee en armonía y comunidad.</p>
+                    <h4>{t.historia.districts.residential.title}</h4>
+                    <p>{t.historia.districts.residential.description}</p>
                 </div>
             </div>
         </div>
 
         <!-- Sitios Históricos -->
         <div class="sitios-historicos">
-            <h3>Sitios Históricos de Pelee</h3>
+            <h3>{t.historia.sites.title}</h3>
             <div class="sitios-grid">
                 <div class="sitio-card">
-                    <h4>🏛️ Plaza Digital Central</h4>
-                    <p>Primer punto de encuentro establecido en Pelee, símbolo de la unidad digital.</p>
+                    <h4>🏛️ {t.historia.sites.plaza.title}</h4>
+                    <p>{t.historia.sites.plaza.description}</p>
                 </div>
 
                 <div class="sitio-card">
-                    <h4>🗼 Torre de Comunicaciones</h4>
-                    <p>Estructura icónica que conecta todos los distritos de la ciudad.</p>
+                    <h4>🗼 {t.historia.sites.tower.title}</h4>
+                    <p>{t.historia.sites.tower.description}</p>
                 </div>
 
                 <div class="sitio-card">
-                    <h4>📚 Biblioteca Digital</h4>
-                    <p>Repositorio histórico del conocimiento acumulado desde la fundación.</p>
+                    <h4>📚 {t.historia.sites.library.title}</h4>
+                    <p>{t.historia.sites.library.description}</p>
                 </div>
 
                 <div class="sitio-card">
-                    <h4>🌟 Monumento a los Fundadores</h4>
-                    <p>Homenaje a los pioneros que establecieron la primera ciudad digital en Drenio.</p>
+                    <h4>🌟 {t.historia.sites.monument.title}</h4>
+                    <p>{t.historia.sites.monument.description}</p>
                 </div>
             </div>
         </div>

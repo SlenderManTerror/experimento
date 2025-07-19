@@ -1,12 +1,12 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { getTranslations } from '../i18n/utils.js';
-import InicioInteractivo from '../components/InicioInteractivo.astro';
-import Layout from '../layouts/Layout.astro';
-import Particulas from '../components/Particulas.astro';
-import SplashScreen from '../components/SplashScreen.astro';
+import { getTranslations } from '../../i18n/utils.js';
+import InicioInteractivo from '../../components/InicioInteractivo.astro';
+import Layout from '../../layouts/Layout.astro';
+import Particulas from '../../components/Particulas.astro';
+import SplashScreen from '../../components/SplashScreen.astro';
 
-const currentLang = Astro.currentLocale || 'es';
+const currentLang = 'en';
 const t = await getTranslations(currentLang);
 ---
 

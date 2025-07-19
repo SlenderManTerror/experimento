@@ -1,7 +1,23 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getTranslations } from '../i18n/utils.js';
 import '../styles/global.css';
+
+const currentLang = Astro.currentLocale || 'es';
+const t = await getTranslations(currentLang);
+
+// Idiomas disponibles
+const languages = {
+  es: 'Español',
+  en: 'English',
+  eo: 'Esperanto'
+};
+
+// Obtener la ruta actual sin el prefijo de idioma
+const currentPath = Astro.url.pathname.replace(/^\/[a-z]{2}\//, '/') || '/';
 ---
-<script>
+
+<script define:vars={{ currentPath, languages }}>
     // Mobile menu toggle functionality
     document.addEventListener('DOMContentLoaded', function() {
         const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -51,49 +67,73 @@ import '../styles/global.css';
         document.addEventListener('click', function(event) {
             if (
                 isMenuOpen &&
-                !mobileMenuButton.contains(event.target as Node) &&
-                !mobileMenu.contains(event.target as Node)
+                !mobileMenuButton.contains(event.target) &&
+                !mobileMenu.contains(event.target)
             ) {
                 mobileMenuButton.click();
             }
+        });
+
+        // Funcionalidad del selector de idioma
+        document.getElementById('language-selector')?.addEventListener('change', (e) => {
+            const newLang = e.target.value;
+            const newUrl = `${newLang === 'es' ? '' : `/${newLang}`}${currentPath}`;
+            window.location.href = newUrl;
         });
     });
 </script>
 
 <header class="flex justify-between items-center px-6 py-4 bg-[var(--surface)] relative">
-    <div class="logo">
-        <a href="/" class="text-3xl font-bold text-[var(--primary)] hover:text-green-400 transition-colors">
-            <p class="text-3xl font-bold">Pelee</p>
-        </a>
+    <!-- Left Section: Logo + Language Selector -->
+    <div class="flex items-center space-x-6">
+        <div class="logo">
+            <a href={getRelativeLocaleUrl(currentLang, '/')} class="text-3xl font-bold text-[var(--primary)] hover:text-green-400 transition-colors">
+                <p class="text-3xl font-bold">Pelee</p>
+            </a>
+        </div>
+
+        <!-- Language Selector - Now on the left -->
+        <div class="relative">
+            <select 
+                id="language-selector"
+                class="bg-[var(--surface)] border border-[var(--primary)] text-[var(--primary)] rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+            >
+                {Object.entries(languages).map(([code, name]) => (
+                    <option value={code} selected={currentLang === code}>
+                        {name}
+                    </option>
+                ))}
+            </select>
+        </div>
     </div>
 
-    <!-- Desktop Navigation -->
+    <!-- Center/Right Section: Desktop Navigation -->
     <nav class="hidden md:block">
         <ul class="flex space-x-8">
             <li>
-                <a href="/historia" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
-                    Historia
+                <a href={getRelativeLocaleUrl(currentLang, '/historia')} class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
+                    {t.nav.historia}
                 </a>
             </li>
             <li>
-                <a href="/distritos" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
-                    Distritos
+                <a href={getRelativeLocaleUrl(currentLang, '/distritos')} class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
+                    {t.nav.distritos}
                 </a>
             </li>
             <li>
-                <a href="/mapa" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
-                    Mapa
+                <a href={getRelativeLocaleUrl(currentLang, '/mapa')} class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
+                    {t.nav.mapa}
                 </a>
             </li>
             <li>
-                <a href="/autoridades" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
-                    Autoridades
+                <a href={getRelativeLocaleUrl(currentLang, '/autoridades')} class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all">
+                    {t.nav.autoridades}
                 </a>
             </li>
         </ul>
     </nav>
 
-    <!-- Mobile Hamburger Button -->
+    <!-- Right Section: Mobile Hamburger Button -->
     <button
         id="mobile-menu-button"
         class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1 focus:outline-none z-50"
@@ -106,28 +146,28 @@ import '../styles/global.css';
 
     <!-- Mobile Navigation Menu -->
     <nav
-        id="mobile-menu" 
+        id="mobile-menu"
         class="md:hidden absolute top-full left-0 w-full bg-[var(--scaffold-bg)] border-b border-[var(--surface)] shadow-lg transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-out z-40"
     >
         <ul class="flex flex-col py-4">
             <li>
-                <a href="/historia" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
-                    Historia
+                <a href={getRelativeLocaleUrl(currentLang, '/historia')} class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
+                    {t.nav.historia}
                 </a>
             </li>
             <li>
-                <a href="/distritos" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
-                    Distritos
+                <a href={getRelativeLocaleUrl(currentLang, '/distritos')} class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
+                    {t.nav.distritos}
                 </a>
             </li>
             <li>
-                <a href="/mapa" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
-                    Mapa
+                <a href={getRelativeLocaleUrl(currentLang, '/mapa')} class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
+                    {t.nav.mapa}
                 </a>
             </li>
             <li>
-                <a href="/autoridades" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
-                    Autoridades
+                <a href={getRelativeLocaleUrl(currentLang, '/autoridades')} class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all">
+                    {t.nav.autoridades}
                 </a>
             </li>
         </ul>

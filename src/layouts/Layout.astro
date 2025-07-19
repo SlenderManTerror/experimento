@@ -9,9 +9,11 @@ const { noMusic = false } = Astro.props; // Opcional: para páginas sin música
 
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
+// Obtener el idioma actual
+const currentLang = Astro.currentLocale || 'es';
 ---
 <!DOCTYPE html>
-<html lang="es">
+<html lang={currentLang}>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />

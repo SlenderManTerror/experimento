@@ -1,9 +1,9 @@
 ---
-import { getTranslations } from '../i18n/utils.js';
-import Layout from '../layouts/Layout.astro';
-import Particulas from '../components/Particulas.astro';
+import { getTranslations } from '../../i18n/utils.js';
+import Layout from '../../layouts/Layout.astro';
+import Particulas from '../../components/Particulas.astro';
 
-const currentLang = 'es';
+const currentLang = 'en';
 const t = await getTranslations(currentLang);
 ---
 <Layout 
@@ -21,7 +21,7 @@ const t = await getTranslations(currentLang);
     </h1>
     <div class="mt-6 mx-4 mb-8">
         <div class="max-w-full mx-auto">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d551357.7495051074!2d-70.95946699787198!3d-33.47235169784676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5410425af2f%3A0x8475d53c400f0931!2sSantiago%2C%20Regi%C3%B3n%20Metropolitana%2C%20Chile!5e1!3m2!1ses!2sus!4v1751845180891!5m2!1ses!2sus"
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d551357.7495051074!2d-70.95946699787198!3d-33.47235169784676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5410425af2f%3A0x8475d53c400f0931!2sSantiago%2C%20Regi%C3%B3n%20Metropolitana%2C%20Chile!5e1!3m2!1sen!2sus!4v1751845180891!5m2!1sen!2sus"
                 class="w-full h-[800px] rounded-lg shadow-lg border-4 border-green-500"
                 allowfullscreen=""
                 loading="lazy"

@@ -1,12 +1,12 @@
 ---
-import { getTranslations } from '../i18n/utils.js';
-import Layout from '../layouts/Layout.astro';
-import FiltrosDistrito from '../components/FiltrosDistrito.astro';
-import distritos from '../assets/distritos.png';
-import Table from '../components/table.astro';
-import Particulas from '../components/Particulas.astro';
+import { getTranslations } from '../../i18n/utils.js';
+import Layout from '../../layouts/Layout.astro';
+import FiltrosDistrito from '../../components/FiltrosDistrito.astro';
+import distritos from '../../assets/distritos.png';
+import Table from '../../components/table.astro';
+import Particulas from '../../components/Particulas.astro';
 
-const currentLang = 'es';
+const currentLang = 'en';
 const t = await getTranslations(currentLang);
 ---
 <Layout 

@@ -1,28 +1,32 @@
 ---
-// src/components/FiltrosDistrito.astro
+// src/components/FiltrosDistrito.astro - VERSIÓN MULTIIDIOMA
+import { getTranslations } from '../i18n/utils.js';
 import '../styles/global.css';
+
+const currentLang = Astro.currentLocale || 'es';
+const t = await getTranslations(currentLang);
 ---
 
 <div class="bg-[var(--surface)] p-4 rounded-lg mb-4 shadow-sm">
-    <h3 class="text-lg font-semibold mb-3">Filtros</h3>
+    <h3 class="text-lg font-semibold mb-3">{t.distritos.filters.title}</h3>
     
     <!-- Filtros -->
     <div class="mb-4">
         <label class="label-base mb-2">
-            Buscar distrito:
+            {t.distritos.filters.searchLabel}
         </label>
         <input 
             type="text" 
             id="filtro-distrito"
             class="input-base"
-            placeholder="Escribe el nombre del distrito..."
+            placeholder={t.distritos.filters.placeholder}
         >
     </div>
 
     <!-- Ordenamiento -->
     <div class="mb-4">
         <label class="label-base mb-2">
-            Ordenar por:
+            {t.distritos.filters.sortLabel}
         </label>
         <div class="flex flex-wrap gap-2">
             <button 
@@ -44,14 +48,14 @@ import '../styles/global.css';
                 class="btn-base btn-secondary orden-btn"
                 data-orden="poblacion-asc"
             >
-                Población ↑
+                {t.distritos.filters.populationUp}
             </button>
             <button 
                 id="orden-poblacion-desc"
                 class="btn-base btn-secondary orden-btn"
                 data-orden="poblacion-desc"
             >
-                Población ↓
+                {t.distritos.filters.populationDown}
             </button>
         </div>
     </div>
@@ -62,32 +66,32 @@ import '../styles/global.css';
             id="limpiar-filtros"
             class="btn-base btn-primary"
         >
-            Limpiar Filtros
+            {t.distritos.filters.clearFilters}
         </button>
         <span id="contador-resultados" class="text-sm text-[var(--colorfiltro)]">
-            Mostrando 30 de 30 distritos
+            {t.distritos.filters.showing} 30 {t.distritos.filters.of} 30 {t.distritos.filters.districts}
         </span>
     </div>
 </div>
 
-<script>
-    interface Window {
-        TablaDistritosManager: any;
-    }
+<script define:vars={{ t }}>
+    // Removed TypeScript interface declaration for Window as it's not supported in .astro files.
 
     class FiltrosManager {
-        private ordenActual: string = 'alfabetico-asc';
-        private contadorResultados: HTMLElement | null = null;
-        private filtroDistritoInput: HTMLInputElement | null = null;
+        ordenActual = 'alfabetico-asc';
+        contadorResultados = null;
+        filtroDistritoInput = null;
+        translations;
 
-        constructor() {
+        constructor(translations) {
+            this.translations = translations;
             this.init();
         }
 
-        private init() {
+        init() {
             // Obtener elementos
             this.contadorResultados = document.getElementById('contador-resultados');
-            this.filtroDistritoInput = document.getElementById('filtro-distrito') as HTMLInputElement;
+            this.filtroDistritoInput = document.getElementById('filtro-distrito');
 
             // Configurar event listeners
             this.setupEventListeners();
@@ -97,7 +101,7 @@ import '../styles/global.css';
             this.actualizarContador();
         }
 
-        private setupEventListeners() {
+        setupEventListeners() {
             // Filtro de búsqueda
             this.filtroDistritoInput?.addEventListener('input', () => {
                 this.filtrarTabla();
@@ -108,7 +112,7 @@ import '../styles/global.css';
             botonesOrden.forEach(boton => {
                 boton.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const criterio = (e.target as HTMLElement).getAttribute('data-orden');
+                    const criterio = e.target.getAttribute('data-orden');
                     if (criterio) {
                         this.ordenarTabla(criterio);
                     }
@@ -120,15 +124,15 @@ import '../styles/global.css';
             limpiarFiltrosBtn?.addEventListener('click', () => this.limpiarFiltros());
         }
 
-        private ordenarTabla(criterio: string) {
+        ordenarTabla(criterio) {
             const tbody = document.getElementById('tabla-distritos');
             if (!tbody) return;
             
             const filas = Array.from(tbody.querySelectorAll('.distrito-row'));
             
             filas.sort((a, b) => {
-                const elementoA = a as HTMLElement;
-                const elementoB = b as HTMLElement;
+                const elementoA = a;
+                const elementoB = b;
                 
                 switch (criterio) {
                     case 'alfabetico-asc':
@@ -166,7 +170,7 @@ import '../styles/global.css';
             this.actualizarContador();
         }
 
-        private actualizarBotonActivo(criterio: string) {
+        actualizarBotonActivo(criterio) {
             const botones = document.querySelectorAll('.orden-btn');
             botones.forEach(btn => {
                 btn.classList.remove('active');
@@ -178,7 +182,7 @@ import '../styles/global.css';
             this.ordenActual = criterio;
         }
 
-        private filtrarTabla() {
+        filtrarTabla() {
             const filtroDistrito = this.filtroDistritoInput?.value.toLowerCase() || '';
             const filas = document.querySelectorAll('.distrito-row');
             let contadorVisible = 0;
@@ -192,25 +196,28 @@ import '../styles/global.css';
                 
                 // Mostrar u ocultar la fila
                 if (coincideDistrito) {
-                    (fila as HTMLElement).style.display = '';
+                    fila.style.display = '';
                     contadorVisible++;
                 } else {
-                    (fila as HTMLElement).style.display = 'none';
+                    fila.style.display = 'none';
                 }
             });
             
             this.actualizarContador();
         }
 
-        private actualizarContador() {
+        actualizarContador() {
             if (this.contadorResultados) {
                 const totalFilas = document.querySelectorAll('.distrito-row').length;
                 const filasVisibles = document.querySelectorAll('.distrito-row:not([style*="display: none"])').length;
-                this.contadorResultados.textContent = `Mostrando ${filasVisibles} de ${totalFilas} distritos`;
+                
+                // Usar las traducciones para el contador
+                const filters = this.translations.distritos.filters;
+                this.contadorResultados.textContent = `${filters.showing} ${filasVisibles} ${filters.of} ${totalFilas} ${filters.districts}`;
             }
         }
 
-        private limpiarFiltros() {
+        limpiarFiltros() {
             // Limpiar input de búsqueda
             if (this.filtroDistritoInput) {
                 this.filtroDistritoInput.value = '';
@@ -219,7 +226,7 @@ import '../styles/global.css';
             // Mostrar todas las filas
             const filas = document.querySelectorAll('.distrito-row');
             filas.forEach(fila => {
-                (fila as HTMLElement).style.display = '';
+                fila.style.display = '';
             });
 
             // Restablecer orden alfabético
@@ -230,16 +237,16 @@ import '../styles/global.css';
         }
 
         // Método público para actualizar contador desde externa
-        public actualizarContadorPublico() {
+        actualizarContadorPublico() {
             this.actualizarContador();
         }
     }
 
     // Inicializar cuando el DOM esté listo
     document.addEventListener('DOMContentLoaded', () => {
-        const filtrosManager = new FiltrosManager();
+        const filtrosManager = new FiltrosManager(t);
 
         // Hacer disponible globalmente si es necesario
-        (window as any).FiltrosManager = filtrosManager;
+        window.FiltrosManager = filtrosManager;
     });
 </script>

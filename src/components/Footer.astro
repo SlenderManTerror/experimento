@@ -1,8 +1,12 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getTranslations } from '../i18n/utils.js';
 import '../styles/global.css';
+
+const currentLang = Astro.currentLocale || 'es';
+const t = await getTranslations(currentLang);
 const currentYear = new Date().getFullYear();
 ---
-
 <footer class="bg-[var(--surface)] text-white py-12 px-4">
   <div class="max-w-6xl mx-auto">
     <!-- Main Footer Content -->
@@ -11,40 +15,36 @@ const currentYear = new Date().getFullYear();
       <div class="lg:col-span-2">
         <h2 class="text-2xl font-bold text-[var(--primary)] mb-4">Pelee</h2>
         <p class="text-[var(--textofooter)] mb-4 max-w-md">
-          Descubre la historia, los distritos y todo lo que necesitas saber sobre Pelee.
-          Tu guía completa para explorar nuestra comunidad.
+          {t.footer.description}
         </p>
       </div>
-
       <!-- Navigation Links -->
       <div class="order-2 lg:order-1">
-        <h3 class="text-lg text-[var(--on-surface)] font-semibold mb-4">Navegación</h3>
+        <h3 class="text-lg text-[var(--on-surface)] font-semibold mb-4">{t.footer.navigation}</h3>
         <ul class="space-y-2">
-          <li><a href="/historia" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">Historia</a></li>
-          <li><a href="/distritos" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">Distritos</a></li>
-          <li><a href="/mapa" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">Mapa</a></li>
-          <li><a href="/autoridades" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">Autoridades</a></li>
+          <li><a href={getRelativeLocaleUrl(currentLang, '/historia')} class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">{t.nav.historia}</a></li>
+          <li><a href={getRelativeLocaleUrl(currentLang, '/distritos')} class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">{t.nav.distritos}</a></li>
+          <li><a href={getRelativeLocaleUrl(currentLang, '/mapa')} class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">{t.nav.mapa}</a></li>
+          <li><a href={getRelativeLocaleUrl(currentLang, '/autoridades')} class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">{t.nav.autoridades}</a></li>
         </ul>
       </div>
     </div>
-
     <!-- Divider -->
     <div class="border-t border-[var(--textofooter)] mb-8"></div>
-
     <!-- Bottom Section -->
     <div class="flex flex-col md:flex-row justify-between items-center">
       <div class="text-[var(--textofooter)] text-sm mb-4 md:mb-0">
-        © {currentYear} Pelee. Todos los derechos reservados.
+        {t.footer.copyright.replace('{year}', currentYear.toString())}
       </div>
       <div class="flex space-x-6 text-sm">
-        <a href="/privacidad" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">
-          Política de Privacidad
+        <a href={getRelativeLocaleUrl(currentLang, '/privacidad')} class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">
+          {t.footer.privacy}
         </a>
-        <a href="/terminos" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">
-          Términos de Uso
+        <a href={getRelativeLocaleUrl(currentLang, '/terminos')} class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">
+          {t.footer.terms}
         </a>
-        <a href="/cookies" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">
-          Cookies
+        <a href={getRelativeLocaleUrl(currentLang, '/cookies')} class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">
+          {t.footer.cookies}
         </a>
       </div>
     </div>
