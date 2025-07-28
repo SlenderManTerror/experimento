@@ -143,6 +143,10 @@ const {
         line-height: 1;
         user-select: none;
         touch-action: none;
+        min-width: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .drag-handle:hover {
@@ -255,10 +259,11 @@ const {
         .music-controls {
             bottom: 20px;
             right: 20px;
-            padding: 10px 16px;
-            gap: 8px;
+            padding: 14px 20px;
+            gap: 12px;
             transform: translateY(100px);
             opacity: 0;
+            min-height: 50px;
         }
 
         .music-controls.show {
@@ -267,43 +272,45 @@ const {
         }
 
         .control-btn {
-            width: 36px;
-            height: 36px;
-            padding: 6px;
+            width: 44px;
+            height: 44px;
+            padding: 8px;
         }
 
         .control-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .toggle-btn {
+            width: 44px;
+            height: 44px;
+            margin-left: 8px;
+        }
+
+        .volume-slider {
+            width: 70px;
+        }
+
+        .slider {
+            height: 4px;
+        }
+
+        .slider::-webkit-slider-thumb {
             width: 16px;
             height: 16px;
         }
 
-        .toggle-btn {
-            width: 36px;
-            height: 36px;
-            margin-left: 6px;
-        }
-
-        .volume-slider {
-            width: 60px;
-        }
-
-        .slider {
-            height: 3px;
-        }
-
-        .slider::-webkit-slider-thumb {
-            width: 12px;
-            height: 12px;
-        }
-
         .slider::-moz-range-thumb {
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
         }
 
         .drag-handle {
-            font-size: 10px;
-            padding: 6px 2px;
+            font-size: 14px;
+            padding: 8px 6px;
+            min-width: 24px;
+            touch-action: none;
         }
     }
 
@@ -312,48 +319,51 @@ const {
         .music-controls {
             bottom: 15px;
             right: 15px;
-            padding: 8px 12px;
-            gap: 6px;
+            padding: 12px 16px;
+            gap: 8px;
+            min-height: 45px;
         }
 
         .control-btn {
-            width: 32px;
-            height: 32px;
-            padding: 4px;
+            width: 40px;
+            height: 40px;
+            padding: 6px;
         }
 
         .control-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .toggle-btn {
+            width: 40px;
+            height: 40px;
+            margin-left: 6px;
+        }
+
+        .volume-slider {
+            width: 60px;
+        }
+
+        .slider {
+            height: 4px;
+        }
+
+        .slider::-webkit-slider-thumb {
             width: 14px;
             height: 14px;
         }
 
-        .toggle-btn {
-            width: 32px;
-            height: 32px;
-            margin-left: 4px;
-        }
-
-        .volume-slider {
-            width: 50px;
-        }
-
-        .slider {
-            height: 3px;
-        }
-
-        .slider::-webkit-slider-thumb {
-            width: 10px;
-            height: 10px;
-        }
-
         .slider::-moz-range-thumb {
-            width: 10px;
-            height: 10px;
+            width: 14px;
+            height: 14px;
         }
 
         .drag-handle {
-            font-size: 8px;
-            padding: 4px 2px;
+            font-size: 12px;
+            padding: 6px 4px;
+            min-width: 20px;
+            touch-action: none;
         }
     }
 </style>
@@ -536,7 +546,11 @@ const {
             dragHandle.addEventListener('mousedown', startDrag);
             
             if (isMobile) {
-                dragHandle.addEventListener('touchstart', startDrag, { passive: false });
+                dragHandle.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    startDrag(e);
+                }, { passive: false });
             }
             
             console.log('🎵 Drag listeners added');
@@ -546,8 +560,21 @@ const {
         document.addEventListener('mouseup', endDrag);
         
         if (isMobile) {
-            document.addEventListener('touchmove', drag, { passive: false });
-            document.addEventListener('touchend', endDrag);
+            document.addEventListener('touchmove', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                drag(e);
+            }, { passive: false });
+            
+            document.addEventListener('touchend', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                endDrag();
+            }, { passive: false });
         }
         
         // Restaurar posición guardada
@@ -586,33 +613,96 @@ const {
                 });
             }, 1000);
         }
-    });
-    
-    // Función de emergencia para crear controles en móviles
-    function createMobileControls() {
-        console.log('🎵 Creating emergency mobile controls...');
-        const container = document.querySelector('.background-music-container');
-        if (container) {
-            const mobileControls = document.createElement('div');
-            mobileControls.id = 'music-controls';
-            mobileControls.className = 'music-controls show';
-            mobileControls.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: rgba(0,0,0,0.8);
-                padding: 10px;
-                border-radius: 25px;
-                display: flex;
-                gap: 8px;
-                z-index: 99999;
-            `;
-            mobileControls.innerHTML = `
-                <button style="background:none;border:none;color:white;padding:8px;">▶️</button>
-                <button style="background:none;border:none;color:white;padding:8px;">🔊</button>
-            `;
-            container.appendChild(mobileControls);
-            console.log('🎵 Emergency controls created');
+        
+        // Función de emergencia para crear controles en móviles
+        function createMobileControls() {
+            console.log('🎵 Creating emergency mobile controls...');
+            const container = document.querySelector('.background-music-container');
+            if (container) {
+                const mobileControls = document.createElement('div');
+                mobileControls.id = 'music-controls';
+                mobileControls.className = 'music-controls show';
+                mobileControls.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: rgba(0,0,0,0.8);
+                    padding: 14px 20px;
+                    border-radius: 25px;
+                    display: flex;
+                    gap: 12px;
+                    z-index: 99999;
+                    min-height: 50px;
+                    align-items: center;
+                `;
+                mobileControls.innerHTML = `
+                    <div style="color:rgba(255,255,255,0.5);cursor:grab;padding:8px 6px;font-size:14px;user-select:none;touch-action:none;min-width:24px;display:flex;align-items:center;justify-content:center;">⋮⋮</div>
+                    <button style="background:none;border:none;color:white;padding:8px;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:18px;">▶️</button>
+                    <button style="background:none;border:none;color:white;padding:8px;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:18px;">🔊</button>
+                `;
+                container.appendChild(mobileControls);
+                console.log('🎵 Emergency controls created');
+                
+                // Agregar funcionalidad de arrastre a los controles de emergencia
+                const emergencyDragHandle = mobileControls.querySelector('div');
+                if (emergencyDragHandle) {
+                    let isDragging = false;
+                    let startX: number, startY: number, initialX: number, initialY: number;
+                    
+                    function startEmergencyDrag(e: any) {
+                        isDragging = true;
+                        mobileControls.style.transition = 'none';
+                        
+                        const rect = mobileControls.getBoundingClientRect();
+                        initialX = rect.left;
+                        initialY = rect.top;
+                        
+                        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                        
+                        startX = clientX - initialX;
+                        startY = clientY - initialY;
+                        
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    
+                    function emergencyDrag(e: any) {
+                        if (!isDragging) return;
+                        
+                        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                        
+                        let newX = clientX - startX;
+                        let newY = clientY - startY;
+                        
+                        const rect = mobileControls.getBoundingClientRect();
+                        const maxX = window.innerWidth - rect.width - 10;
+                        const maxY = window.innerHeight - rect.height - 10;
+                        
+                        newX = Math.max(10, Math.min(newX, maxX));
+                        newY = Math.max(10, Math.min(newY, maxY));
+                        
+                        mobileControls.style.left = newX + 'px';
+                        mobileControls.style.top = newY + 'px';
+                        mobileControls.style.right = 'auto';
+                        mobileControls.style.bottom = 'auto';
+                        
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    
+                    function endEmergencyDrag() {
+                        if (!isDragging) return;
+                        isDragging = false;
+                        mobileControls.style.transition = '';
+                    }
+                    
+                    emergencyDragHandle.addEventListener('touchstart', startEmergencyDrag, { passive: false });
+                    document.addEventListener('touchmove', emergencyDrag, { passive: false });
+                    document.addEventListener('touchend', endEmergencyDrag, { passive: false });
+                }
+            }
         }
-    }
+    });
 </script>
