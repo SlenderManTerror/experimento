@@ -16,7 +16,10 @@ const {
 ---
 
 <div class="background-music-container">
-    <!-- Audio element -->
+    <!-- Audio        .toggle-btn {
+            width: 56px;
+            height: 56px;
+        }ent -->
     <audio 
         id="background-music" 
         loop 
@@ -29,7 +32,7 @@ const {
     <!-- Controles de música -->
     {showControls && (
         <div class="music-controls" id="music-controls">
-            <!-- Handle de arrastre -->
+            <!-- Handle de arrastre al inicio -->
             <div class="drag-handle" id="drag-handle" title="Arrastra para mover">
                 ⋮⋮
             </div>
@@ -42,6 +45,16 @@ const {
                 <svg class="pause-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path d="M6 4H10V20H6V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M14 4H18V20H14V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+
+            <!-- Botón de toggle -->
+            <button id="toggle-btn" class="control-btn toggle-btn" title="Mostrar/Ocultar controles">
+                <svg class="chevron-right" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <svg class="chevron-left hidden" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
 
@@ -71,16 +84,6 @@ const {
                     />
                 </div>
             </div>
-
-            <!-- Botón de toggle -->
-            <button id="toggle-btn" class="control-btn toggle-btn" title="Mostrar/Ocultar controles">
-                <svg class="chevron-left" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <svg class="chevron-right hidden" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
         </div>
     )}
 </div>
@@ -128,11 +131,9 @@ const {
 
     .music-controls.minimized .secondary-controls {
         opacity: 0;
-        transform: translateX(20px) scale(0.8);
+        visibility: hidden;
+        transform: translateY(-50%) translateX(20px);
         pointer-events: none;
-        width: 0;
-        overflow: hidden;
-        margin: 0;
     }
 
     .drag-handle {
@@ -185,8 +186,8 @@ const {
     .toggle-btn {
         width: 40px;
         height: 40px;
-        margin-left: 8px;
         border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
     }
 
     .toggle-btn:hover {
@@ -194,12 +195,22 @@ const {
     }
 
     .secondary-controls {
+        position: absolute;
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
         display: flex;
         align-items: center;
         gap: 12px;
         transition: all 0.3s ease;
-        overflow: hidden;
-        margin-left: 8px;
+        overflow: visible;
+        margin-right: 8px;
+        background: var(--primary);
+        border-radius: 50px;
+        padding: 8px 16px;
+        opacity: 1;
+        visibility: visible;
+        white-space: nowrap;
     }
 
     .volume-slider {
@@ -254,6 +265,21 @@ const {
         display: none !important;
     }
 
+    /* Asegurar visibilidad en móviles */
+    @media (max-width: 768px) {
+        .music-controls {
+            z-index: 99999 !important;
+            pointer-events: all !important;
+        }
+        
+        .music-controls.show {
+            display: flex !important;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            visibility: visible !important;
+        }
+    }
+
     /* Responsive para móviles */
     @media (max-width: 768px) {
         .music-controls {
@@ -267,8 +293,10 @@ const {
         }
 
         .music-controls.show {
-            transform: translateY(0);
-            opacity: 1;
+            transform: translateY(0) !important;
+            opacity: 1 !important;
+            display: flex !important;
+            visibility: visible !important;
         }
 
         .control-btn {
@@ -285,7 +313,6 @@ const {
         .toggle-btn {
             width: 44px;
             height: 44px;
-            margin-left: 8px;
         }
 
         .volume-slider {
@@ -338,7 +365,6 @@ const {
         .toggle-btn {
             width: 40px;
             height: 40px;
-            margin-left: 6px;
         }
 
         .volume-slider {
@@ -636,15 +662,16 @@ const {
                     align-items: center;
                 `;
                 mobileControls.innerHTML = `
-                    <div style="color:rgba(255,255,255,0.5);cursor:grab;padding:8px 6px;font-size:14px;user-select:none;touch-action:none;min-width:24px;display:flex;align-items:center;justify-content:center;">⋮⋮</div>
-                    <button style="background:none;border:none;color:white;padding:8px;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:18px;">▶️</button>
+                    <button style="background:none;border:none;color:white;padding:8px;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:18px;">⬅️</button>
                     <button style="background:none;border:none;color:white;padding:8px;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:18px;">🔊</button>
+                    <button style="background:none;border:none;color:white;padding:8px;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:18px;">▶️</button>
+                    <div style="color:rgba(255,255,255,0.5);cursor:grab;padding:8px 6px;font-size:14px;user-select:none;touch-action:none;min-width:24px;display:flex;align-items:center;justify-content:center;">⋮⋮</div>
                 `;
                 container.appendChild(mobileControls);
                 console.log('🎵 Emergency controls created');
                 
                 // Agregar funcionalidad de arrastre a los controles de emergencia
-                const emergencyDragHandle = mobileControls.querySelector('div');
+                const emergencyDragHandle = mobileControls.querySelector('div:last-child');
                 if (emergencyDragHandle) {
                     let isDragging = false;
                     let startX: number, startY: number, initialX: number, initialY: number;
