@@ -237,5 +237,15 @@
         "alt": "Rectángulo redondo con una estrella y una flecha hacia arriba"
       }
     }
+  },
+  "splash": {
+    "title": "Pelee",
+    "subtitle": "La Ciudad Digital",
+    "loading": "Iniciando experiencia...",
+    "status": {
+      "connecting": "Conectando",
+      "loading": "Cargando recursos",
+      "ready": "Listo"
+    }
   }
 }

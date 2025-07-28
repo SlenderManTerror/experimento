@@ -237,5 +237,15 @@
         "alt": "Rounded rectangle with a star and an upward arrow"
       }
     }
+  },
+  "splash": {
+    "title": "Pelee",
+    "subtitle": "The Digital City",
+    "loading": "Starting experience...",
+    "status": {
+      "connecting": "Connecting",
+      "loading": "Loading resources",
+      "ready": "Ready"
+    }
   }
 }

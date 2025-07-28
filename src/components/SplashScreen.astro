@@ -1,18 +1,25 @@
 ---
 // SplashScreen.astro
+import { getTranslations } from '../i18n/utils.js';
+
 export interface Props {
     duration?: number; // Duración en milisegundos
     showLogo?: boolean;
     showProgress?: boolean;
     backgroundColor?: string;
+    currentLang?: string;
 }
 
 const { 
     duration = 3500, 
     showLogo = true, 
     showProgress = true,
-    backgroundColor = '#0a1a0a'
+    backgroundColor = '#0a1a0a',
+    currentLang = 'es'
 } = Astro.props;
+
+// Obtener traducciones para el idioma actual
+const t = await getTranslations(currentLang);
 ---
 
 <div id="splash-screen" class="splash-screen" style={`background-color: ${backgroundColor}`}>
@@ -112,10 +119,10 @@ const {
                 </div>
                 
                 <div class="text-container">
-                    <h1 class="splash-title">Pelee</h1>
+                    <h1 class="splash-title" data-i18n="splash.title">{t.splash.title}</h1>
                     <div class="title-underline"></div>
-                    <p class="splash-subtitle">La Ciudad Digital</p>
-                    <div class="loading-text">Iniciando experiencia...</div>
+                    <p class="splash-subtitle" data-i18n="splash.subtitle">{t.splash.subtitle}</p>
+                    <div class="loading-text" data-i18n="splash.loading">{t.splash.loading}</div>
                 </div>
             </div>
         )}
@@ -133,15 +140,15 @@ const {
                 <div class="status-indicators">
                     <div class="status-item">
                         <div class="status-dot active"></div>
-                        <span>Conectando</span>
+                        <span data-i18n="splash.status.connecting">{t.splash.status.connecting}</span>
                     </div>
                     <div class="status-item">
                         <div class="status-dot"></div>
-                        <span>Cargando recursos</span>
+                        <span data-i18n="splash.status.loading">{t.splash.status.loading}</span>
                     </div>
                     <div class="status-item">
                         <div class="status-dot"></div>
-                        <span>Listo</span>
+                        <span data-i18n="splash.status.ready">{t.splash.status.ready}</span>
                     </div>
                 </div>
             </div>
@@ -1006,7 +1013,7 @@ const {
     }
 </style>
 
-<script define:vars={{ duration }}>
+<script define:vars={{ duration, currentLang }}>
     document.addEventListener('DOMContentLoaded', () => {
         const splashScreen = document.getElementById('splash-screen');
         const progressFill = document.querySelector('.progress-fill');
@@ -1021,6 +1028,114 @@ const {
         if (progressGlow) {
             progressGlow.style.setProperty('--duration', `${duration}ms`);
         }
+        
+        // Sistema de traducciones dinámicas
+        const translations = {
+            es: {
+                title: "Pelee",
+                subtitle: "La Ciudad Digital",
+                loading: "Iniciando experiencia...",
+                status: {
+                    connecting: "Conectando",
+                    loading: "Cargando recursos",
+                    ready: "Listo"
+                }
+            },
+            en: {
+                title: "Pelee",
+                subtitle: "The Digital City",
+                loading: "Starting experience...",
+                status: {
+                    connecting: "Connecting",
+                    loading: "Loading resources",
+                    ready: "Ready"
+                }
+            },
+            eo: {
+                title: "Pelee",
+                subtitle: "La Cifereca Urbo",
+                loading: "Komencante sperton...",
+                status: {
+                    connecting: "Konektante",
+                    loading: "Ŝargante rimedojn",
+                    ready: "Preta"
+                }
+            }
+        };
+        
+        // Función para actualizar textos según el idioma
+        function updateLanguage(lang) {
+            const t = translations[lang] || translations['es'];
+            
+            // Actualizar todos los elementos con data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                const keys = key.split('.');
+                let value = t;
+                
+                // Navegar por el objeto anidado
+                for (const k of keys) {
+                    value = value[k];
+                    if (!value) break;
+                }
+                
+                if (value && typeof value === 'string') {
+                    element.textContent = value;
+                }
+            });
+            
+            console.log(`🌐 Splash screen language updated to: ${lang}`);
+        }
+        
+        // Detectar cambios de idioma
+        function detectLanguageChange() {
+            // Detectar desde la URL
+            const urlLang = window.location.pathname.split('/')[1];
+            const validLangs = ['es', 'en', 'eo'];
+            const detectedLang = validLangs.includes(urlLang) ? urlLang : 'es';
+            
+            // Detectar desde localStorage si existe
+            const savedLang = localStorage.getItem('language') || localStorage.getItem('lang');
+            
+            // Usar el idioma detectado o el guardado
+            const finalLang = savedLang || detectedLang;
+            
+            if (finalLang !== currentLang) {
+                updateLanguage(finalLang);
+            }
+            
+            return finalLang;
+        }
+        
+        // Detectar idioma inicial
+        const initialLang = detectLanguageChange();
+        
+        // Escuchar cambios de idioma a través de eventos personalizados
+        window.addEventListener('languageChanged', (event) => {
+            const newLang = event.detail?.language || event.detail?.lang;
+            if (newLang) {
+                updateLanguage(newLang);
+            }
+        });
+        
+        // Escuchar cambios en localStorage
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'language' || event.key === 'lang') {
+                const newLang = event.newValue;
+                if (newLang) {
+                    updateLanguage(newLang);
+                }
+            }
+        });
+        
+        // Observar cambios en la URL (para navegación SPA)
+        let lastPathname = window.location.pathname;
+        setInterval(() => {
+            if (window.location.pathname !== lastPathname) {
+                lastPathname = window.location.pathname;
+                detectLanguageChange();
+            }
+        }, 100);
         
         // Animación del porcentaje
         let currentPercentage = 0;

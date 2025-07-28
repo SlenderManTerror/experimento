@@ -576,5 +576,58 @@ const currentLang = Astro.currentLocale || 'es';
                 }, true);
             </script>
         )}
+        
+        <!-- Sistema global de cambio de idioma -->
+        <script define:vars={{ currentLang }}>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Configurar idioma inicial
+                window.currentLanguage = currentLang;
+                
+                // Función para notificar cambios de idioma
+                window.changeLanguage = function(newLang) {
+                    const oldLang = window.currentLanguage;
+                    window.currentLanguage = newLang;
+                    
+                    // Guardar en localStorage
+                    localStorage.setItem('language', newLang);
+                    
+                    // Disparar evento personalizado
+                    const event = new CustomEvent('languageChanged', {
+                        detail: {
+                            language: newLang,
+                            oldLanguage: oldLang
+                        }
+                    });
+                    window.dispatchEvent(event);
+                    
+                    console.log(`🌐 Language changed from ${oldLang} to ${newLang}`);
+                };
+                
+                // Detectar cambios en la URL (navegación entre idiomas)
+                let lastPathname = window.location.pathname;
+                function checkLanguageFromURL() {
+                    const currentPathname = window.location.pathname;
+                    if (currentPathname !== lastPathname) {
+                        lastPathname = currentPathname;
+                        
+                        // Extraer idioma de la URL
+                        const urlLang = currentPathname.split('/')[1];
+                        const validLangs = ['es', 'en', 'eo'];
+                        
+                        if (validLangs.includes(urlLang) && urlLang !== window.currentLanguage) {
+                            window.changeLanguage(urlLang);
+                        }
+                    }
+                }
+                
+                // Verificar cambios de URL cada 100ms
+                setInterval(checkLanguageFromURL, 100);
+                
+                // Verificar al cargar la página
+                checkLanguageFromURL();
+                
+                console.log(`🌐 Language system initialized with: ${currentLang}`);
+            });
+        </script>
     </body>
 </html>

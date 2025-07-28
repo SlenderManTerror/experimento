@@ -237,5 +237,15 @@
         "alt": "Rondangula rektangulo kun stelo kaj sago supren"
       }
     }
+  },
+  "splash": {
+    "title": "Pelee",
+    "subtitle": "La Cifereca Urbo",
+    "loading": "Komencante sperton...",
+    "status": {
+      "connecting": "Konektante",
+      "loading": "Ŝargante rimedojn",
+      "ready": "Preta"
+    }
   }
 }
