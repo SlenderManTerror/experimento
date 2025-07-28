@@ -86,7 +86,7 @@
     "districts": {
       "title": "Main Districts",
       "central": {
-        "title": "Central District",
+        "title": "The Capital District",
         "description": "Administrative and governmental center of Pelee, where the most important decisions for the city are made."
       },
       "tech": {
@@ -94,7 +94,7 @@
         "description": "Innovation and technological development hub, home to the main digital research centers."
       },
       "commercial": {
-        "title": "Commercial District",
+        "title": "The Banking District",
         "description": "Economic center of the city, where the main commercial and financial activities take place."
       },
       "green": {
@@ -125,7 +125,7 @@
         "description": "Historical repository of knowledge accumulated since the foundation."
       },
       "monument": {
-        "title": "Founders' Monument",
+        "title": "The ruins of the 14 kingdoms",
         "description": "Tribute to the pioneers who established the first digital city on Drenio."
       }
     }

@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="eo"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.11.0"><title>Distriktoj</title><meta name="description" content="En ĉi tiu paĝo estas la listo de distriktoj de ĉi tiu bela mondo."><link rel="icon" type="image/svg+xml" href="/_astro/Esperanto(1).CRkX5jTI.svg"><!-- Preload música para mejor rendimiento --><link rel="preload" href="/audio/495747__clacksberg__minimal-ambient-musicatmosphere-fragment.mp3" as="audio" type="audio/mpeg"><link rel="stylesheet" href="/_astro/distritos.BtaBVhqV.css">
+<link rel="stylesheet" href="/_astro/autoridades.DXL_ItsQ.css"></head> <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;"> <!-- Componente de música --> <div class="background-music-container" data-astro-cid-uec6uply> <!-- Audio element --> <audio id="background-music" loop preload="auto" data-astro-cid-uec6uply> <source src="/audio/495747__clacksberg__minimal-ambient-musicatmosphere-fragment.mp3" type="audio/mpeg" data-astro-cid-uec6uply> <source src="/audio/495747__clacksberg__minimal-ambient-musicatmosphere-fragment.ogg" type="audio/ogg" data-astro-cid-uec6uply> </audio> <!-- Controles de música --> <div class="music-controls" id="music-controls" data-astro-cid-uec6uply> <button id="play-pause-btn" class="control-btn" title="Reproducir/Pausar" data-astro-cid-uec6uply> <svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" data-astro-cid-uec6uply> <path d="M8 5V19L19 12L8 5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-uec6uply></path> </svg> <svg class="pause-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" data-astro-cid-uec6uply> <path d="M6 4H10V20H6V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-uec6uply></path> <path d="M14 4H18V20H14V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-uec6uply></path> </svg> </button> <button id="mute-btn" class="control-btn" title="Silenciar/Activar" data-astro-cid-uec6uply> <svg class="volume-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" data-astro-cid-uec6uply> <path d="M11 5L6 9H2V15H6L11 19V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-uec6uply></path> <path d="M19.07 4.93A10 10 0 0 1 22 12A10 10 0 0 1 19.07 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-uec6uply></path> </svg> <svg class="mute-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" data-astro-cid-uec6uply> <path d="M11 5L6 9H2V15H6L11 19V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-uec6uply></path> <path d="M23 9L17 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-uec6uply></path> <path d="M17 9L23 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-uec6uply></path> </svg> </button> <div class="volume-slider" data-astro-cid-uec6uply> <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.2" class="slider" data-astro-cid-uec6uply> </div> </div> </div>  <script type="module">console.log("🎵 BackgroundMusic component loaded");document.addEventListener("DOMContentLoaded",()=>{console.log("🎵 BackgroundMusic component loaded");const o=document.getElementById("background-music");o&&(o.style.display="none",console.log("🎵 Component audio hidden, using global system")),console.log("🎵 Component ready - global system will handle everything")});</script> <script>(function(){const currentPath = "/distritos/";
+const languages = {"es":"Español","en":"English","eo":"Esperanto"};
+
+    // Mobile menu toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (!mobileMenuButton || !mobileMenu) {
+            return;
+        }
+        const hamburgerLines = mobileMenuButton.querySelectorAll('span');
+
+        let isMenuOpen = false;
+        
+        mobileMenuButton.addEventListener('click', function() {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                // Open menu
+                mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
+                mobileMenu.classList.add('translate-y-0', 'opacity-100', 'visible');
+
+                // Animate hamburger to X
+                hamburgerLines[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+                hamburgerLines[1].style.opacity = '0';
+                hamburgerLines[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+            } else {
+                // Close menu
+                mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'visible');
+                mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
+                
+                // Animate X back to hamburger
+                hamburgerLines[0].style.transform = 'none';
+                hamburgerLines[1].style.opacity = '1';
+                hamburgerLines[2].style.transform = 'none';
+            }
+        });
+        
+        // Close menu when clicking on menu items
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (isMenuOpen) {
+                    mobileMenuButton.click();
+                }
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (
+                isMenuOpen &&
+                !mobileMenuButton.contains(event.target) &&
+                !mobileMenu.contains(event.target)
+            ) {
+                mobileMenuButton.click();
+            }
+        });
+
+        // Funcionalidad del selector de idioma
+        document.getElementById('language-selector')?.addEventListener('change', (e) => {
+            const newLang = e.target.value;
+            const newUrl = `${newLang === 'es' ? '' : `/${newLang}`}${currentPath}`;
+            window.location.href = newUrl;
+        });
+    });
+})();</script> <header class="flex justify-between items-center px-6 py-4 bg-[var(--surface)] relative"> <!-- Left Section: Logo + Language Selector --> <div class="flex items-center space-x-6"> <div class="logo"> <a href="/eo/" class="text-3xl font-bold text-[var(--primary)] hover:text-green-400 transition-colors"> <p class="text-3xl font-bold">Pelee</p> </a> </div> <!-- Language Selector - Now on the left --> <div class="relative"> <select id="language-selector" class="bg-[var(--surface)] border border-[var(--primary)] text-[var(--primary)] rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"> <option value="es"> Español </option><option value="en"> English </option><option value="eo" selected> Esperanto </option> </select> </div> </div> <!-- Center/Right Section: Desktop Navigation --> <nav class="hidden md:block"> <ul class="flex space-x-8"> <li> <a href="/eo/historia/" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all"> Historio </a> </li> <li> <a href="/eo/distritos/" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all"> Distriktoj </a> </li> <li> <a href="/eo/mapa/" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all"> Mapo </a> </li> <li> <a href="/eo/autoridades/" class="text-[var(--primary)] hover:text-green-600 font-medium px-3 py-2 rounded-md hover:bg-[var(--scaffold-bg)] transition-all"> Aŭtoritatoj </a> </li> </ul> </nav> <!-- Right Section: Mobile Hamburger Button --> <button id="mobile-menu-button" class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1 focus:outline-none z-50" aria-label="Toggle menu"> <span class="block w-6 h-0.5 bg-[var(--primary)] transition-all duration-300 ease-out"></span> <span class="block w-6 h-0.5 bg-[var(--primary)] transition-all duration-300 ease-out"></span> <span class="block w-6 h-0.5 bg-[var(--primary)] transition-all duration-300 ease-out"></span> </button> <!-- Mobile Navigation Menu --> <nav id="mobile-menu" class="md:hidden absolute top-full left-0 w-full bg-[var(--scaffold-bg)] border-b border-[var(--surface)] shadow-lg transform -translate-y-full opacity-0 invisible transition-all duration-300 ease-out z-40"> <ul class="flex flex-col py-4"> <li> <a href="/eo/historia/" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all"> Historio </a> </li> <li> <a href="/eo/distritos/" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all"> Distriktoj </a> </li> <li> <a href="/eo/mapa/" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all"> Mapo </a> </li> <li> <a href="/eo/autoridades/" class="block text-[var(--primary)] hover:text-green-600 hover:bg-[var(--surface)] font-medium px-6 py-3 transition-all"> Aŭtoritatoj </a> </li> </ul> </nav> </header> <main style="flex: 1;">  <div class="floating-particles" data-brightness="bright" data-size="medium" data-speed="normal" data-astro-cid-njb6ljch style="--particleColor: 22, 178, 105;--particleOpacity: 0.6;--particleGlow: 0 0 15px;--particleGlowOpacity: 0.4;"><div class="particle" style="--particle-size:7px;--particle-duration:12s;--particle-delay:1.4756646197609142s;--particle-left:6.797512436802251%;--particleColor: 22, 178, 105;--particleOpacity: 0.6;--particleGlow: 0 0 15px;--particleGlowOpacity: 0.4;" data-astro-cid-njb6ljch></div><div class="particle" style="--particle-size:8px;--particle-duration:21s;--particle-delay:4.06923343140414s;--particle-left:16.9059345349885%;--particleColor: 22, 178, 105;--particleOpacity: 0.6;--particleGlow: 0 0 15px;--particleGlowOpacity: 0.4;" data-astro-cid-njb6ljch></div><div class="particle" style="--particle-size:4px;--particle-duration:17s;--particle-delay:3.380811480555647s;--particle-left:21.554977501254314%;--particleColor: 22, 178, 105;--particleOpacity: 0.6;--particleGlow: 0 0 15px;--particleGlowOpacity: 0.4;" data-astro-cid-njb6ljch></div><div class="particle" style="--particle-size:8px;--particle-duration:21s;--particle-delay:5.391141355593651s;--particle-left:29.739404784301925%;--particleColor: 22, 178, 105;--particleOpacity: 0.6;--particleGlow: 0 0 15px;--particleGlowOpacity: 0.4;" data-astro-cid-njb6ljch></div><div class="particle" style="--particle-size:5px;--particle-duration:18s;--particle-delay:0.9369835545656517s;--particle-left:45.4973509122021%;--particleColor: 22, 178, 105;--particleOpacity: 0.6;--particleGlow: 0 0 15px;--particleGlowOpacity: 0.4;" data-astro-cid-njb6ljch></div><div class="particle" style="--particle-size:7px;--particle-duration:13s;--particle-delay:2.449600669096263s;--particle-left:54.971625411454575%;--particleColor: 22, 178, 105;--particleOpacity: 0.6;--particleGlow: 0 0 15px;--particleGlowOpacity: 0.4;" data-astro-cid-njb6ljch></div><div class="particle" style="--particle-size:6px;--particle-duration:15s;--particle-delay:4.060683919069919s;--particle-left:56.1247229205345%;--particleColor: 22, 178, 105;--particleOpacity: 0.6;--particleGlow: 0 0 15px;--particleGlowOpacity: 0.4;" data-astro-cid-njb6ljch></div><div class="particle" style="--particle-size:5px;--particle-duration:17s;--particle-delay:0.9447841106646884s;--particle-left:65.44065346971288%;--particleColor: 22, 178, 105;--particleOpacity: 0.6;--particleGlow: 0 0 15px;--particleGlowOpacity: 0.4;" data-astro-cid-njb6ljch></div><div class="particle" style="--particle-size:6px;--particle-duration:21s;--particle-delay:1.8167447100142726s;--particle-left:79.41451860419083%;--particleColor: 22, 178, 105;--particleOpacity: 0.6;--particleGlow: 0 0 15px;--particleGlowOpacity: 0.4;" data-astro-cid-njb6ljch></div><div class="particle" style="--particle-size:8px;--particle-duration:11s;--particle-delay:3.77623162120353s;--particle-left:81.03054694243728%;--particleColor: 22, 178, 105;--particleOpacity: 0.6;--particleGlow: 0 0 15px;--particleGlowOpacity: 0.4;" data-astro-cid-njb6ljch></div></div> <h1 class="text-center p-10.5 text-[var(--primary)]"> Distriktoj de Pelee </h1> <div class="mt-4 ml-4 mr-4"> <img src="/_astro/distritos.DcwT9IYg.png" alt="Listo de distriktoj." class="rounded-lg w-full border-2"> <br> <!-- Componente de filtros --> <div class="bg-[var(--surface)] p-4 rounded-lg mb-4 shadow-sm"> <h3 class="text-lg font-semibold mb-3">Filtriloj</h3> <!-- Filtros --> <div class="mb-4"> <label class="label-base mb-2"> Serĉi distrikton: </label> <input type="text" id="filtro-distrito" class="input-base" placeholder="Tajpu la nomon de la distrikto..."> </div> <!-- Ordenamiento --> <div class="mb-4"> <label class="label-base mb-2"> Ordigi laŭ: </label> <div class="flex flex-wrap gap-2"> <button id="orden-alfabetico-asc" class="btn-base btn-secondary orden-btn active" data-orden="alfabetico-asc">
+A-Z
+</button> <button id="orden-alfabetico-desc" class="btn-base btn-secondary orden-btn" data-orden="alfabetico-desc">
+Z-A
+</button> <button id="orden-poblacion-asc" class="btn-base btn-secondary orden-btn" data-orden="poblacion-asc"> Loĝantaro ↑ </button> <button id="orden-poblacion-desc" class="btn-base btn-secondary orden-btn" data-orden="poblacion-desc"> Loĝantaro ↓ </button> </div> </div> <!-- Botones de acción --> <div class="flex flex-wrap items-center gap-3"> <button id="limpiar-filtros" class="btn-base btn-primary"> Malpurigi Filtrilojn </button> <span id="contador-resultados" class="text-sm text-[var(--colorfiltro)]"> Montrante 30 de 30 distriktoj </span> </div> </div> <script>(function(){const t = {"nav":{"historia":"Historio","distritos":"Distriktoj","mapa":"Mapo","autoridades":"Aŭtoritatoj"},"content":{"title":"Hejmo","description":"Bonvenon al Pelee. En ĉi tiu paĝo vi konos ĉi tiun mirindan ciferecan universon."},"hero":{"badge":"✨ La Cifereca Urbo","welcomeTo":"Bonvenon al","description":"Via kompleta portalo por esplori ĉi tiun mirindan mondon. Aliru nian historion, informojn kaj konektiĝu kun ĉio, kion vi bezonas.","exploreButton":"Esplori nun"},"sections":{"explore":"Esploru Pelee","subtitle":"Kvar portaloj por malkovri ĉion pri nia komunumo"},"cards":{"historia":{"badge":"Heredaĵo","title":"Historio","description":"Malkovru la riĉan heredaĵon de Pelee per historiaj arkivoj, fotoj kaj atestoj, kiuj formis nian identecon.","stats":"12,400 dokumentitaj jaroj"},"distritos":{"badge":"Urba","title":"Distriktoj","description":"Esploru la malsamajn zonojn, kiuj formas Pelee. Ĉiu distrikto havas sian propran personeco kaj unikajn servojn.","stats":"30 haveblaj distriktoj"},"mapa":{"badge":"Navigado","title":"Mapo","description":"Navigi tra Pelee per nia interaga maparo-sistemo. Trovu lokojn kaj interesaĵojn facile.","stats":"Interaga mapo"},"autoridades":{"badge":"Oficiala","title":"Aŭtoritatoj","description":"Aliru registarajn servojn kaj oficialajn informojn. Administru procedojn kaj restu informita pri reguloj.","stats":"24/7 servoj"}},"footer":{"description":"Malkovru la historion, distriktojn kaj ĉion, kion vi bezonas scii pri Pelee. Via kompleta gvidilo por esplori nian komunumon.","navigation":"Navigado","copyright":"© {year} Pelee. Ĉiuj rajtoj rezervitaj.","privacy":"Privatecan Politiko","terms":"Uzkondiĉoj","cookies":"Kuketoj"},"historia":{"hero":{"title":"Historio de Pelee","description":"Malkovru la originojn kaj evoluon de ĉi tiu fascinanta cifereca urbo sur planedo Drenio."},"timeline":{"title":"Kronologio de Pelee","events":{"founding":{"title":"Fundado de Pelee","date":"Cifereca Erao 2847","description":"La cifereca urbo Pelee estis fondita kiel la unua teknologia kolonio sur planedo Drenio, establante la fundamentojn por tute cifereca civilizo."},"districts":{"title":"Divido en Distriktojn","date":"Cifereca Erao 2851","description":"Estis establita la divido de Pelee en 30 specialajn distriktojn, ĉiu kun specifaj funkcioj por optimumigi urban kaj socian organizadon."},"expansion":{"title":"Granda Ekspansio","date":"Cifereca Erao 2856","description":"Pelee spertis sian plej grandan kreskon, ekspansiante siajn limojn kaj disvolviante la teknologian infrastrukturon kiu karakterizas ĝin hodiaŭ."},"modern":{"title":"Moderna Erao","date":"Cifereca Erao 2860 - Nuno","description":"Pelee fariĝas la plej altnivela cifereca metropolo sur Drenio, estante modelo de novigo kaj daŭripova teknologia disvolvo."}}},"districts":{"title":"Ĉefaj Distriktoj","central":{"title":"Centra Distrikto","description":"Administra kaj registara centro de Pelee, kie estas farataj la plej gravaj decidoj por la urbo."},"tech":{"title":"Teknologia Distrikto","description":"Centro de novigo kaj teknologia disvolvo, hejmo de la ĉefaj ciferecaj esploraj centroj."},"commercial":{"title":"Komerca Distrikto","description":"Ekonomia centro de la urbo, kie okazas la ĉefaj komercaj kaj financaj aktivecoj."},"green":{"title":"Verda Distrikto","description":"Areo dediĉita al daŭripoveco kaj konservado de la cifereca ekosistemo de Pelee."},"cultural":{"title":"Kultura Distrikto","description":"Spaco dediĉita al arto, kulturo kaj kreiva esprimo de la loĝantoj de Pelee."},"residential":{"title":"Loĝeja Distrikto","description":"Loĝejaj areoj kie vivas la ciferecaj civitanoj de Pelee en harmonio kaj komunumo."}},"sites":{"title":"Historiaj Lokoj de Pelee","plaza":{"title":"Centra Cifereca Placo","description":"Unua renkontiĝloko establita en Pelee, simbolo de cifereca unueco."},"tower":{"title":"Komunikada Turo","description":"Ikona strukturo kiu konektas ĉiujn distriktojn de la urbo."},"library":{"title":"Cifereca Biblioteko","description":"Historia deponejo de la scio akumulita ekde la fundado."},"monument":{"title":"Monumento al la Fondintoj","description":"Omaĝo al la pioniroj kiuj establis la unuan ciferecan urbon sur Drenio."}}},"distritos":{"title":"Distriktoj de Pelee","description":"En ĉi tiu paĝo estas la listo de distriktoj de ĉi tiu bela mondo.","imageAlt":"Listo de distriktoj.","filters":{"title":"Filtriloj","searchLabel":"Serĉi distrikton:","placeholder":"Tajpu la nomon de la distrikto...","sortLabel":"Ordigi laŭ:","populationUp":"Loĝantaro ↑","populationDown":"Loĝantaro ↓","clearFilters":"Malpurigi Filtrilojn","showing":"Montrante","of":"de","districts":"distriktoj"},"table":{"district":"Distrikto","population":"Loĝantaro","description":"Priskribo"},"districts":{"sed":"Ĉefurba distrikto de Pelee","captan":"Tura distrikto de Pelee","sonoj":"Monarkia distrikto de Pelee","luchad":"Lasta batala distrikto de Pelee","teroj":"Pasinta distrikto de Pelee","radianta":"Dezerta distrikto de Pelee","naval":"Mara distrikto de Pelee","eure":"Agrikultura distrikto de Pelee","ki":"Orienta distrikto de Pelee","kondado":"Meka distrikto de Pelee","lundono":"Harmonia distrikto de Pelee","estatico":"Plej malvarma distrikto de Pelee","real":"Medicina distrikto de Pelee","jurakano":"Vulkana distrikto de Pelee","nebula":"Teknologia distrikto de Pelee","u":"Luksa distrikto de Pelee","kuartio":"Luma distrikto de Pelee","kohadran":"Fervoja distrikto de Pelee","kanoa":"Arbara distrikto de Pelee","dolia":"Luksa distrikto de Pelee","leuten":"Fortuna distrikto de Pelee","stormo":"Motora distrikto de Pelee","novaki":"Malgranda orienta distrikto de Pelee","temburgo":"Banka distrikto de Pelee","gedeon":"Mikrodistrikto de Pelee","sanki":"Frata distrikto de Pelee","ligilo":"Industria distrikto de Pelee","angeloj":"Aera distrikto de Pelee","do-tou":"Plej malnova distrikto de Pelee","ladigo":"Placa distrikto de Pelee","default":"Distrikto de Pelee"}},"mapa":{"title":"La Mapo de Pelee","description":"En ĉi tiu paĝo vi vidos la mapon de la mondo de Pelee.","mapTitle":"Mapo de Pelee"},"autoridades":{"title":"Kiel funkcias Pelee?","description":"En ĉi tiu paĝo vi vidos kiel funkcias Pelee.","introText":"En Pelee ekzistas serio da aŭtoritatoj kiuj administras la leĝojn depende de la necesa prioritato.","republic":"Respubliko de Pelee","authorities":{"education":{"name":"Eduka Aŭtoritato","description":"(Eduka Aŭtoritato)","alt":"Malferma libro kun stelo"},"security":{"name":"Sekureca Aŭtoritato","description":"(Sekureca Aŭtoritato)","alt":"Ŝildo kun stelo"},"health":{"name":"Sana Aŭtoritato","description":"(Sana Aŭtoritato)","alt":"Rondangula rektangulo kun S kaj stelo"},"infrastructure":{"name":"Infrastruktura Aŭtoritato","description":"(Infrastruktura Aŭtoritato)","alt":"Cirklo kun stelo"},"science":{"name":"Scienca Aŭtoritato","description":"(Scienca Aŭtoritato)","alt":"Stanga diagramo kun stelo"},"justice":{"name":"Justa Aŭtoritato","description":"(Justa Aŭtoritato)","alt":"Ringo kun stelo"},"recreation":{"name":"Rekreacia Aŭtoritato","description":"(Rekreacia Aŭtoritato)","alt":"Tri steloj kune"},"temsoj":{"name":"Temsoj Aŭtoritato","description":"(Temsoj Aŭtoritato)","alt":"Rondangula rektangulo kun stelo kaj sago supren"}}}};
+
+    // Removed TypeScript interface declaration for Window as it's not supported in .astro files.
+
+    class FiltrosManager {
+        ordenActual = 'alfabetico-asc';
+        contadorResultados = null;
+        filtroDistritoInput = null;
+        translations;
+
+        constructor(translations) {
+            this.translations = translations;
+            this.init();
+        }
+
+        init() {
+            // Obtener elementos
+            this.contadorResultados = document.getElementById('contador-resultados');
+            this.filtroDistritoInput = document.getElementById('filtro-distrito');
+
+            // Configurar event listeners
+            this.setupEventListeners();
+            
+            // Inicializar con orden alfabético y contador
+            this.ordenarTabla('alfabetico-asc');
+            this.actualizarContador();
+        }
+
+        setupEventListeners() {
+            // Filtro de búsqueda
+            this.filtroDistritoInput?.addEventListener('input', () => {
+                this.filtrarTabla();
+            });
+
+            // Ordenamiento
+            const botonesOrden = document.querySelectorAll('.orden-btn');
+            botonesOrden.forEach(boton => {
+                boton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const criterio = e.target.getAttribute('data-orden');
+                    if (criterio) {
+                        this.ordenarTabla(criterio);
+                    }
+                });
+            });
+
+            // Limpiar filtros
+            const limpiarFiltrosBtn = document.getElementById('limpiar-filtros');
+            limpiarFiltrosBtn?.addEventListener('click', () => this.limpiarFiltros());
+        }
+
+        ordenarTabla(criterio) {
+            const tbody = document.getElementById('tabla-distritos');
+            if (!tbody) return;
+            
+            const filas = Array.from(tbody.querySelectorAll('.distrito-row'));
+            
+            filas.sort((a, b) => {
+                const elementoA = a;
+                const elementoB = b;
+                
+                switch (criterio) {
+                    case 'alfabetico-asc':
+                        const nombreA = elementoA.getAttribute('data-distrito') || '';
+                        const nombreB = elementoB.getAttribute('data-distrito') || '';
+                        return nombreA.localeCompare(nombreB, 'es', { sensitivity: 'base' });
+                        
+                    case 'alfabetico-desc':
+                        const nombreDescA = elementoA.getAttribute('data-distrito') || '';
+                        const nombreDescB = elementoB.getAttribute('data-distrito') || '';
+                        return nombreDescB.localeCompare(nombreDescA, 'es', { sensitivity: 'base' });
+                        
+                    case 'poblacion-asc':
+                        const poblacionAscA = parseInt(elementoA.getAttribute('data-poblacion') || '0');
+                        const poblacionAscB = parseInt(elementoB.getAttribute('data-poblacion') || '0');
+                        return poblacionAscA - poblacionAscB;
+                        
+                    case 'poblacion-desc':
+                        const poblacionDescA = parseInt(elementoA.getAttribute('data-poblacion') || '0');
+                        const poblacionDescB = parseInt(elementoB.getAttribute('data-poblacion') || '0');
+                        return poblacionDescB - poblacionDescA;
+                        
+                    default:
+                        return 0;
+                }
+            });
+            
+            // Reordenar elementos en el DOM
+            filas.forEach(fila => tbody.appendChild(fila));
+            
+            // Actualizar botón activo
+            this.actualizarBotonActivo(criterio);
+            
+            // Actualizar contador después de ordenar
+            this.actualizarContador();
+        }
+
+        actualizarBotonActivo(criterio) {
+            const botones = document.querySelectorAll('.orden-btn');
+            botones.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const botonActivo = document.querySelector(`[data-orden="${criterio}"]`);
+            botonActivo?.classList.add('active');
+            
+            this.ordenActual = criterio;
+        }
+
+        filtrarTabla() {
+            const filtroDistrito = this.filtroDistritoInput?.value.toLowerCase() || '';
+            const filas = document.querySelectorAll('.distrito-row');
+            let contadorVisible = 0;
+            
+            filas.forEach(fila => {
+                const nombreDistritoAttr = fila.getAttribute('data-distrito');
+                const nombreDistrito = nombreDistritoAttr ? nombreDistritoAttr.toLowerCase() : '';
+
+                // Filtro por nombre de distrito
+                const coincideDistrito = nombreDistrito.includes(filtroDistrito);
+                
+                // Mostrar u ocultar la fila
+                if (coincideDistrito) {
+                    fila.style.display = '';
+                    contadorVisible++;
+                } else {
+                    fila.style.display = 'none';
+                }
+            });
+            
+            this.actualizarContador();
+        }
+
+        actualizarContador() {
+            if (this.contadorResultados) {
+                const totalFilas = document.querySelectorAll('.distrito-row').length;
+                const filasVisibles = document.querySelectorAll('.distrito-row:not([style*="display: none"])').length;
+                
+                // Usar las traducciones para el contador
+                const filters = this.translations.distritos.filters;
+                this.contadorResultados.textContent = `${filters.showing} ${filasVisibles} ${filters.of} ${totalFilas} ${filters.districts}`;
+            }
+        }
+
+        limpiarFiltros() {
+            // Limpiar input de búsqueda
+            if (this.filtroDistritoInput) {
+                this.filtroDistritoInput.value = '';
+            }
+            
+            // Mostrar todas las filas
+            const filas = document.querySelectorAll('.distrito-row');
+            filas.forEach(fila => {
+                fila.style.display = '';
+            });
+
+            // Restablecer orden alfabético
+            this.ordenarTabla('alfabetico-asc');
+            
+            // Actualizar contador
+            this.actualizarContador();
+        }
+
+        // Método público para actualizar contador desde externa
+        actualizarContadorPublico() {
+            this.actualizarContador();
+        }
+    }
+
+    // Inicializar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', () => {
+        const filtrosManager = new FiltrosManager(t);
+
+        // Hacer disponible globalmente si es necesario
+        window.FiltrosManager = filtrosManager;
+    });
+})();</script> <!-- Componente de tabla --> <!-- Tabla de distritos --><table> <thead> <tr> <th>Distrikto</th> <th>Loĝantaro</th> <th>Priskribo</th> </tr> </thead> <tbody id="tabla-distritos"> <tr class="distrito-row" data-distrito="Sed" data-poblacion="723000"> <td>Sed</td> <td>723,000</td> <td>Ĉefurba distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Captan" data-poblacion="892000"> <td>Captan</td> <td>892,000</td> <td>Tura distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Sonoj" data-poblacion="861000"> <td>Sonoj</td> <td>861,000</td> <td>Monarkia distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Luchad" data-poblacion="763000"> <td>Luchad</td> <td>763,000</td> <td>Lasta batala distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Teroj" data-poblacion="722000"> <td>Teroj</td> <td>722,000</td> <td>Pasinta distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Radianta" data-poblacion="481000"> <td>Radianta</td> <td>481,000</td> <td>Dezerta distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Naval" data-poblacion="573000"> <td>Naval</td> <td>573,000</td> <td>Mara distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Eŭre" data-poblacion="516000"> <td>Eŭre</td> <td>516,000</td> <td>Agrikultura distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Ki" data-poblacion="807000"> <td>Ki</td> <td>807,000</td> <td>Orienta distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Kondado" data-poblacion="590000"> <td>Kondado</td> <td>590,000</td> <td>Meka distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Lundono" data-poblacion="302000"> <td>Lundono</td> <td>302,000</td> <td>Harmonia distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Estatico" data-poblacion="252000"> <td>Estatico</td> <td>252,000</td> <td>Plej malvarma distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Real" data-poblacion="170000"> <td>Real</td> <td>170,000</td> <td>Medicina distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Jurakano" data-poblacion="894000"> <td>Jurakano</td> <td>894,000</td> <td>Vulkana distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Nebula" data-poblacion="913000"> <td>Nebula</td> <td>913,000</td> <td>Teknologia distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Ŭ" data-poblacion="761000"> <td>Ŭ</td> <td>761,000</td> <td>Luksa distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Kuartio" data-poblacion="526000"> <td>Kuartio</td> <td>526,000</td> <td>Luma distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Kohadran" data-poblacion="182000"> <td>Kohadran</td> <td>182,000</td> <td>Fervoja distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Kanoa" data-poblacion="51000"> <td>Kanoa</td> <td>51,000</td> <td>Arbara distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Dolia" data-poblacion="278000"> <td>Dolia</td> <td>278,000</td> <td>Luksa distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Leŭten" data-poblacion="712000"> <td>Leŭten</td> <td>712,000</td> <td>Fortuna distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Ŝtormo" data-poblacion="539000"> <td>Ŝtormo</td> <td>539,000</td> <td>Motora distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Nova Ki" data-poblacion="544000"> <td>Nova Ki</td> <td>544,000</td> <td>Malgranda orienta distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Temburgo" data-poblacion="485000"> <td>Temburgo</td> <td>485,000</td> <td>Banka distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Gedeon" data-poblacion="72000"> <td>Gedeon</td> <td>72,000</td> <td>Mikrodistrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="San Ki" data-poblacion="614000"> <td>San Ki</td> <td>614,000</td> <td>Frata distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Ligilo" data-poblacion="884000"> <td>Ligilo</td> <td>884,000</td> <td>Industria distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Anĝeloj" data-poblacion="301000"> <td>Anĝeloj</td> <td>301,000</td> <td>Aera distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="Do-Tou" data-poblacion="2000"> <td>Do-Tou</td> <td>2,000</td> <td>Plej malnova distrikto de Pelee</td> </tr><tr class="distrito-row" data-distrito="La Digo" data-poblacion="46000"> <td>La Digo</td> <td>46,000</td> <td>Placa distrikto de Pelee</td> </tr> </tbody> </table> <br> </div>  </main> <footer class="bg-[var(--surface)] text-white py-12 px-4"> <div class="max-w-6xl mx-auto"> <!-- Main Footer Content --> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8"> <!-- Brand Section --> <div class="lg:col-span-2"> <h2 class="text-2xl font-bold text-[var(--primary)] mb-4">Pelee</h2> <p class="text-[var(--textofooter)] mb-4 max-w-md"> Malkovru la historion, distriktojn kaj ĉion, kion vi bezonas scii pri Pelee. Via kompleta gvidilo por esplori nian komunumon. </p> </div> <!-- Navigation Links --> <div class="order-2 lg:order-1"> <h3 class="text-lg text-[var(--on-surface)] font-semibold mb-4">Navigado</h3> <ul class="space-y-2"> <li><a href="/eo/historia/" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">Historio</a></li> <li><a href="/eo/distritos/" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">Distriktoj</a></li> <li><a href="/eo/mapa/" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">Mapo</a></li> <li><a href="/eo/autoridades/" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300">Aŭtoritatoj</a></li> </ul> </div> </div> <!-- Divider --> <div class="border-t border-[var(--textofooter)] mb-8"></div> <!-- Bottom Section --> <div class="flex flex-col md:flex-row justify-between items-center"> <div class="text-[var(--textofooter)] text-sm mb-4 md:mb-0"> © 2025 Pelee. Ĉiuj rajtoj rezervitaj. </div> <div class="flex space-x-6 text-sm"> <a href="/eo/privacidad/" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300"> Privatecan Politiko </a> <a href="/eo/terminos/" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300"> Uzkondiĉoj </a> <a href="/eo/cookies/" class="text-[var(--textofooter)] hover:text-green-400 transition-colors duration-300"> Kuketoj </a> </div> </div> </div> </footer> <!-- Script global para continuidad entre páginas --> <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.CD_Cir2x.js"></script> </body> </html>
