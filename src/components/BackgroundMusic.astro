@@ -16,10 +16,7 @@ const {
 ---
 
 <div class="background-music-container">
-    <!-- Audio        .toggle-btn {
-            width: 56px;
-            height: 56px;
-        }ent -->
+    <!-- Audio element -->
     <audio 
         id="background-music" 
         loop 
@@ -60,18 +57,6 @@ const {
 
             <!-- Controles secundarios -->
             <div class="secondary-controls" id="secondary-controls">
-                <button id="mute-btn" class="control-btn" title="Silenciar/Activar">
-                    <svg class="volume-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M11 5L6 9H2V15H6L11 19V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M19.07 4.93A10 10 0 0 1 22 12A10 10 0 0 1 19.07 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <svg class="mute-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M11 5L6 9H2V15H6L11 19V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M23 9L17 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M17 9L23 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                
                 <div class="volume-slider">
                     <input 
                         type="range" 
@@ -83,6 +68,18 @@ const {
                         class="slider"
                     />
                 </div>
+                
+                <button id="mute-btn" class="control-btn" title="Silenciar/Activar">
+                    <svg class="volume-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M11 5L6 9H2V15H6L11 19V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19.07 4.93A10 10 0 0 1 22 12A10 10 0 0 1 19.07 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <svg class="mute-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M11 5L6 9H2V15H6L11 19V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M23 9L17 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17 9L23 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
             </div>
         </div>
     )}
@@ -206,11 +203,14 @@ const {
         overflow: visible;
         margin-right: 8px;
         background: var(--primary);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 50px;
         padding: 8px 16px;
         opacity: 1;
         visibility: visible;
         white-space: nowrap;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
     }
 
     .volume-slider {
@@ -625,6 +625,384 @@ const {
         }
         
         console.log('🎵 Component ready');
+        
+        // DETECTOR DE AUDIO MEJORADO - encuentra el audio DONDE SEA
+        let wasPlayingMusic = false;
+        let audioCheckInterval: NodeJS.Timeout;
+        let foundAudioElements: HTMLAudioElement[] = [];
+        
+        function findAllAudioElements() {
+            let allFound: HTMLAudioElement[] = [];
+            
+            // PRIORIDAD 1: Buscar el audio global de window.globalAudio
+            try {
+                // @ts-ignore
+                if (window.globalAudio && window.globalAudio instanceof Audio) {
+                    // @ts-ignore
+                    allFound.push(window.globalAudio);
+                    console.log('🎵 FOUND window.globalAudio:', {
+                        // @ts-ignore
+                        src: window.globalAudio.src,
+                        // @ts-ignore
+                        paused: window.globalAudio.paused,
+                        // @ts-ignore
+                        currentTime: window.globalAudio.currentTime,
+                        // @ts-ignore
+                        duration: window.globalAudio.duration,
+                        // @ts-ignore
+                        loop: window.globalAudio.loop
+                    });
+                }
+            } catch (e) {
+                console.log('🎵 window.globalAudio not accessible:', e);
+            }
+            
+            // PRIORIDAD 2: Buscar otros elementos de audio en el DOM
+            const searches = [
+                // Búsquedas específicas por ID
+                () => document.getElementById('global-background-music') as HTMLAudioElement,
+                () => document.getElementById('background-music') as HTMLAudioElement,
+                // Búsquedas por atributos
+                () => document.querySelector('audio[autoplay]') as HTMLAudioElement,
+                () => document.querySelector('audio[loop]') as HTMLAudioElement,
+                () => document.querySelector('audio[src]') as HTMLAudioElement,
+                // Búsquedas generales
+                () => Array.from(document.querySelectorAll('audio')),
+                () => Array.from(document.querySelectorAll('[src*=".mp3"]')),
+                () => Array.from(document.querySelectorAll('[src*=".ogg"]')),
+                () => Array.from(document.querySelectorAll('[src*=".wav"]')),
+            ];
+            
+            searches.forEach((search, index) => {
+                try {
+                    const result = search();
+                    if (result) {
+                        if (Array.isArray(result)) {
+                            allFound.push(...result.filter(el => el instanceof HTMLAudioElement));
+                        } else if (result instanceof HTMLAudioElement) {
+                            allFound.push(result);
+                        }
+                    }
+                } catch (e) {
+                    console.log(`🎵 Search ${index} failed:`, e);
+                }
+            });
+            
+            // PRIORIDAD 3: Buscar en todas las propiedades de window
+            try {
+                // @ts-ignore
+                for (const prop in window) {
+                    try {
+                        // @ts-ignore
+                        const obj = window[prop];
+                        if (obj && obj instanceof Audio) {
+                            allFound.push(obj);
+                            console.log(`🎵 FOUND audio in window.${prop}`);
+                        }
+                    } catch (e) {}
+                }
+            } catch (e) {
+                console.log('🎵 Window scan failed:', e);
+            }
+            
+            // Eliminar duplicados
+            foundAudioElements = Array.from(new Set(allFound));
+            
+            console.log(`🎵 TOTAL FOUND: ${foundAudioElements.length} audio elements:`, 
+                foundAudioElements.map(a => ({
+                    id: a.id || 'no-id',
+                    src: a.src || 'no-src',
+                    paused: a.paused,
+                    currentTime: a.currentTime,
+                    loop: a.loop,
+                    constructor: a.constructor.name
+                }))
+            );
+            
+            return foundAudioElements;
+        }
+        
+        function bruteForcePauseAllAudio() {
+            // Buscar audio cada vez que se llama
+            const allAudio = findAllAudioElements();
+            let foundPlayingAudio = false;
+            
+            // PRIORIDAD 1: Pausar window.globalAudio directamente
+            try {
+                // @ts-ignore
+                if (window.globalAudio && !window.globalAudio.paused) {
+                    console.log('🎵 PAUSING window.globalAudio:', {
+                        // @ts-ignore
+                        src: window.globalAudio.src || 'no-src',
+                        // @ts-ignore
+                        currentTime: window.globalAudio.currentTime,
+                        // @ts-ignore
+                        duration: window.globalAudio.duration
+                    });
+                    // @ts-ignore
+                    window.globalAudio.pause();
+                    foundPlayingAudio = true;
+                    wasPlayingMusic = true;
+                }
+            } catch (e) {
+                console.log('🎵 Could not pause window.globalAudio:', e);
+            }
+            
+            // PRIORIDAD 2: Pausar otros elementos de audio encontrados
+            allAudio.forEach((audio, index) => {
+                if (audio && !audio.paused) {
+                    console.log(`🎵 PAUSING audio ${index}:`, {
+                        id: audio.id || 'no-id',
+                        src: audio.src || 'no-src',
+                        currentTime: audio.currentTime,
+                        duration: audio.duration
+                    });
+                    audio.pause();
+                    foundPlayingAudio = true;
+                    wasPlayingMusic = true;
+                }
+            });
+            
+            // PRIORIDAD 3: Buscar por Web Audio API
+            if (window.AudioContext || (window as any).webkitAudioContext) {
+                try {
+                    const audioContexts = (window as any).__audioContexts__ || [];
+                    audioContexts.forEach((ctx: any, index: number) => {
+                        if (ctx.state === 'running') {
+                            ctx.suspend();
+                            foundPlayingAudio = true;
+                            wasPlayingMusic = true;
+                            console.log(`🎵 SUSPENDED AudioContext ${index}`);
+                        }
+                    });
+                } catch (e) {
+                    console.log('🎵 AudioContext error:', e);
+                }
+            }
+            
+            if (foundPlayingAudio) {
+                console.log('🎵 ✅ AUDIO SUCCESSFULLY PAUSED');
+            } else {
+                console.log('🎵 ❌ NO PLAYING AUDIO FOUND');
+                // Intentar otra búsqueda más agresiva
+                setTimeout(() => {
+                    const retry = document.querySelectorAll('*');
+                    let foundInRetry = false;
+                    retry.forEach(element => {
+                        if ((element as any).pause && !(element as any).paused) {
+                            try {
+                                (element as any).pause();
+                                foundInRetry = true;
+                                console.log('🎵 RETRY: Found and paused element:', element.tagName, element.id);
+                            } catch (e) {}
+                        }
+                    });
+                    if (!foundInRetry) {
+                        console.log('🎵 RETRY: Still no audio found');
+                    }
+                }, 100);
+            }
+        }
+        
+        function tryResumeAudio() {
+            if (!wasPlayingMusic) return;
+            
+            let resumedAny = false;
+            
+            // PRIORIDAD 1: Reanudar window.globalAudio directamente
+            try {
+                // @ts-ignore
+                if (window.globalAudio && window.globalAudio.paused) {
+                    wasPlayingMusic = false;
+                    setTimeout(() => {
+                        // @ts-ignore
+                        window.globalAudio.play().catch(e => {
+                            console.log('🎵 Resume failed for window.globalAudio:', e);
+                        });
+                        console.log('🎵 ✅ RESUMED window.globalAudio');
+                    }, 100);
+                    resumedAny = true;
+                    return; // Salir temprano si se reanudó el audio global
+                }
+            } catch (e) {
+                console.log('🎵 Could not resume window.globalAudio:', e);
+            }
+            
+            // PRIORIDAD 2: Buscar otros elementos de audio
+            const allAudio = findAllAudioElements();
+            
+            // Intentar reanudar el primer audio pausado
+            for (const audio of allAudio) {
+                if (audio && audio.paused) {
+                    wasPlayingMusic = false;
+                    setTimeout(() => {
+                        audio.play().catch(e => {
+                            console.log('🎵 Resume failed for:', audio.id || 'unnamed', e);
+                        });
+                        console.log('🎵 RESUMED audio:', audio.id || 'unnamed');
+                    }, 100);
+                    resumedAny = true;
+                    break;
+                }
+            }
+            
+            if (!resumedAny) {
+                console.log('🎵 ❌ No paused audio found to resume');
+            }
+        }
+        
+        // Buscar audio periódicamente hasta encontrarlo
+        let audioFoundCount = 0;
+        
+        // Esperar un poco antes de iniciar la búsqueda para dar tiempo al audio global
+        setTimeout(() => {
+            console.log('🎵 Starting audio detection system...');
+            
+            // Búsqueda inicial
+            const initialAudio = findAllAudioElements();
+            audioFoundCount = initialAudio.length;
+            
+            if (audioFoundCount > 0) {
+                console.log(`🎵 ✅ INITIAL DETECTION: Found ${audioFoundCount} audio elements`);
+            } else {
+                console.log('🎵 No audio found initially, will keep searching...');
+            }
+            
+            // Continuar buscando cada 2 segundos
+            audioCheckInterval = setInterval(() => {
+                const found = findAllAudioElements();
+                if (found.length > audioFoundCount) {
+                    audioFoundCount = found.length;
+                    console.log(`🎵 ✅ NEW AUDIO DETECTED! Total: ${found.length}`);
+                }
+            }, 2000);
+        }, 1000); // Esperar 1 segundo antes de empezar
+        
+        // DETECTOR OPTIMIZADO - menos agresivo, más preciso
+        let isPageActive = true;
+        let consecutiveFocusLossCount = 0;
+        
+        // Método 1: Page Visibility API (PRINCIPAL)
+        document.addEventListener('visibilitychange', () => {
+            const hidden = document.hidden;
+            console.log('🎵 Page visibility:', hidden ? 'HIDDEN' : 'VISIBLE');
+            
+            if (hidden) {
+                // Solo pausar si realmente está oculto
+                console.log('🎵 Page is HIDDEN - pausing audio');
+                isPageActive = false;
+                bruteForcePauseAllAudio();
+            } else {
+                // Reanudar inmediatamente cuando vuelve a ser visible
+                console.log('🎵 Page is VISIBLE - resuming audio');
+                isPageActive = true;
+                tryResumeAudio();
+                consecutiveFocusLossCount = 0; // Reset contador
+            }
+        });
+        
+        // Método 2: Window Focus (SECUNDARIO - menos agresivo)
+        let blurTimeout: NodeJS.Timeout | null = null;
+        
+        window.addEventListener('blur', () => {
+            console.log('🎵 Window BLUR detected');
+            
+            // Esperar un momento antes de pausar para evitar falsos positivos
+            blurTimeout = setTimeout(() => {
+                if (!document.hidden && document.hasFocus() === false) {
+                    console.log('🎵 Confirmed focus loss - pausing audio');
+                    isPageActive = false;
+                    bruteForcePauseAllAudio();
+                }
+            }, 500); // Esperar 500ms antes de pausar
+        });
+        
+        window.addEventListener('focus', () => {
+            console.log('🎵 Window FOCUS detected');
+            
+            // Cancelar timeout de pausa si se recupera el foco rápidamente
+            if (blurTimeout) {
+                clearTimeout(blurTimeout);
+            }
+            
+            if (!isPageActive) {
+                console.log('🎵 Confirmed focus gain - resuming audio');
+                isPageActive = true;
+                tryResumeAudio();
+                consecutiveFocusLossCount = 0;
+            }
+        });
+        
+        // Método 3: Polling reducido y menos agresivo
+        setInterval(() => {
+            const hasFocus = document.hasFocus();
+            const isVisible = !document.hidden;
+            
+            // Solo actuar si hay un cambio real y consistente
+            if (!hasFocus && !isVisible && isPageActive) {
+                consecutiveFocusLossCount++;
+                console.log(`🎵 POLLING: Focus loss detected (${consecutiveFocusLossCount})`);
+                
+                // Solo pausar después de múltiples detecciones consecutivas
+                if (consecutiveFocusLossCount >= 3) {
+                    console.log('🎵 POLLING: Confirmed sustained focus loss - pausing');
+                    isPageActive = false;
+                    bruteForcePauseAllAudio();
+                }
+            } else if (hasFocus && isVisible && !isPageActive) {
+                console.log('🎵 POLLING: Focus regained - resuming');
+                isPageActive = true;
+                tryResumeAudio();
+                consecutiveFocusLossCount = 0;
+            } else if (hasFocus || isVisible) {
+                // Reset contador si hay cualquier signo de actividad
+                consecutiveFocusLossCount = 0;
+            }
+        }, 1000); // Polling cada 1 segundo (menos frecuente)
+        
+        // Método 4: Interacciones del usuario (MEJORADO)
+        let lastInteraction = Date.now();
+        let inactivityTimeout: NodeJS.Timeout | null = null;
+        
+        function recordInteraction() {
+            lastInteraction = Date.now();
+            consecutiveFocusLossCount = 0; // Reset contador en cualquier interacción
+            
+            // Cancelar timeout de inactividad
+            if (inactivityTimeout) {
+                clearTimeout(inactivityTimeout);
+                inactivityTimeout = null;
+            }
+            
+            // Asegurar que está activo si hay interacción
+            if (!isPageActive) {
+                console.log('🎵 User interaction detected - ensuring audio is active');
+                isPageActive = true;
+                tryResumeAudio();
+            }
+        }
+        
+        // Solo eventos que indican presencia real del usuario
+        ['click', 'keydown', 'scroll', 'touchstart', 'mousemove'].forEach(event => {
+            document.addEventListener(event, recordInteraction, true);
+        });
+        
+        // Inactividad extrema (solo después de mucho tiempo sin interacción)
+        setInterval(() => {
+            const timeSinceInteraction = Date.now() - lastInteraction;
+            
+            // Solo pausar por inactividad si:
+            // 1. No hay interacción por más de 10 minutos
+            // 2. La página no tiene foco
+            // 3. La página no es visible
+            if (timeSinceInteraction > 600000 && !document.hasFocus() && document.hidden && isPageActive) {
+                console.log('🎵 EXTREME INACTIVITY: 10+ minutes without interaction');
+                isPageActive = false;
+                bruteForcePauseAllAudio();
+            }
+        }, 60000); // Verificar cada minuto
+        
+        console.log('🎵 BRUTE FORCE auto-pause system activated');
         
         // Verificación final para móviles
         if (isMobile) {
